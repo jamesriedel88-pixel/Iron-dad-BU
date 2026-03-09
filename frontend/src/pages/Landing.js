@@ -75,7 +75,7 @@ const Landing = () => {
       {/* Features Section */}
       <div className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-5xl font-bold tracking-tight uppercase mb-4">Why DadWeapon?</h2>
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight uppercase mb-4">Why Dad bod to Weapon?</h2>
           <p className="text-base md:text-lg text-muted-foreground">Everything you need to transform your body and mindset</p>
         </div>
 
