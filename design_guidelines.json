@@ -1,0 +1,123 @@
+{
+  "identity": {
+    "name": "DadWeapon",
+    "archetype": "The Performance Pro",
+    "vibe": "Tactical, Gritty, High-Contrast, Brotherhood",
+    "mission": "Turn Dad Bods into Weapons"
+  },
+  "typography": {
+    "font_family": {
+      "headings": "Barlow Condensed, sans-serif",
+      "body": "Manrope, sans-serif",
+      "mono": "JetBrains Mono, monospace"
+    },
+    "google_fonts_import": "https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@400;600;800&family=Manrope:wght@400;500;700&family=JetBrains+Mono:wght@400&display=swap",
+    "scale": {
+      "h1": "text-5xl md:text-7xl font-extrabold tracking-tighter uppercase",
+      "h2": "text-3xl md:text-5xl font-bold tracking-tight uppercase",
+      "h3": "text-2xl md:text-3xl font-semibold tracking-tight",
+      "body": "text-base md:text-lg leading-relaxed text-muted-foreground",
+      "label": "text-xs font-bold tracking-widest uppercase text-muted-foreground"
+    }
+  },
+  "colors": {
+    "palette": {
+      "background": "#09090B",
+      "foreground": "#FAFAFA",
+      "card": "#121212",
+      "card_foreground": "#FAFAFA",
+      "popover": "#121212",
+      "popover_foreground": "#FAFAFA",
+      "primary": "#3B82F6",
+      "primary_foreground": "#FFFFFF",
+      "secondary": "#27272A",
+      "secondary_foreground": "#FAFAFA",
+      "muted": "#27272A",
+      "muted_foreground": "#A1A1AA",
+      "accent": "#D9F99D",
+      "accent_foreground": "#000000",
+      "destructive": "#EF4444",
+      "destructive_foreground": "#FAFAFA",
+      "border": "#27272A",
+      "input": "#27272A",
+      "ring": "#3B82F6"
+    },
+    "usage_rules": {
+      "gradients": "Avoid full-screen gradients. Use subtle radial gradients for spotlights only.",
+      "text_contrast": "Ensure WCAG AA compliance. Use pure white for headings, zinc-400 for body.",
+      "status_colors": {
+        "success": "#D9F99D",
+        "warning": "#FBBF24",
+        "error": "#EF4444",
+        "info": "#3B82F6"
+      }
+    }
+  },
+  "visual_enhancers": {
+    "borders": "1px solid border-zinc-800. Active elements get border-blue-500.",
+    "shadows": "shadow-none for cards (flat tactical look). shadow-lg for floating actions.",
+    "radius": "rounded-sm (Sharp, tactical feel) or rounded-md. Avoid rounded-xl.",
+    "textures": "Use a subtle noise texture overlay on the background to reduce digital flatness.",
+    "glassmorphism": "Use sparingly. Only for sticky headers: bg-black/80 backdrop-blur-md border-b border-white/10."
+  },
+  "components": {
+    "buttons": {
+      "primary": "bg-primary text-white hover:bg-primary/90 rounded-sm font-bold uppercase tracking-wider",
+      "secondary": "bg-secondary text-white hover:bg-secondary/80 rounded-sm font-medium",
+      "ghost": "hover:bg-zinc-800 text-zinc-400 hover:text-white"
+    },
+    "cards": {
+      "style": "bg-card border border-border rounded-sm p-6",
+      "hover": "hover:border-primary/50 transition-colors duration-300"
+    },
+    "inputs": {
+      "style": "bg-zinc-900/50 border-zinc-800 focus:border-primary focus:ring-1 focus:ring-primary rounded-sm"
+    },
+    "badges": {
+      "style": "bg-zinc-800 text-zinc-300 border border-zinc-700 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wider"
+    }
+  },
+  "layout": {
+    "grid_system": "Bento Grid. Use grid-cols-1 md:grid-cols-12 gap-4.",
+    "spacing": "Generous padding (p-8, p-12) for marketing. Dense (p-4) for dashboard data.",
+    "container": "max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
+  },
+  "motion": {
+    "transitions": "transition-all duration-200 ease-out",
+    "hover_effects": "Scale up slightly (scale-105) or border glow.",
+    "page_transition": "Fade in with slight upward slide.",
+    "libraries": ["framer-motion"]
+  },
+  "media": {
+    "image_urls": {
+      "hero_bg": "https://images.unsplash.com/photo-1640888652225-529c8cd4be50?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwxfHxmaXQlMjBtYW4lMjB3b3JraW5nJTIwb3V0JTIwaG9tZSUyMGd5bXxlbnwwfHx8fDE3NzMwMjc3ODR8MA&ixlib=rb-4.1.0&q=85",
+      "workout_placeholder": "https://images.unsplash.com/photo-1672344048213-76b6e77304bd?crop=entropy&cs=srgb&fm=jpg&ixid=M3w4NjA1NzV8MHwxfHNlYXJjaHwxfHxneW0lMjB3ZWlnaHRzJTIwZHVtYmJlbGxzJTIwZGFyayUyMGJhY2tncm91bmR8ZW58MHx8fHwxNzczMDI3NzkyfDA&ixlib=rb-4.1.0&q=85",
+      "nutrition_placeholder": "https://images.unsplash.com/photo-1772329320539-d297125453c1?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2OTV8MHwxfHNlYXJjaHwxfHxoZWFsdGh5JTIwaGlnaCUyMHByb3RlaW4lMjBtZWFsJTIwcHJlcHxlbnwwfHx8fDE3NzMwMjc3ODl8MA&ixlib=rb-4.1.0&q=85",
+      "community_bg": "https://images.unsplash.com/photo-1758521958524-4087a1e6f55d?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwyfHxmaXQlMjBtYW4lMjB3b3JraW5nJTIwb3V0JTIwaG9tZSUyMGd5bXxlbnwwfHx8fDE3NzMwMjc3ODR8MA&ixlib=rb-4.1.0&q=85"
+    },
+    "icons": "lucide-react (default). Use Shield, Sword, Target, Zap, Activity for gamification."
+  },
+  "accessibility": {
+    "contrast": "Ensure text is readable on dark backgrounds. Use text-zinc-400 for secondary text, not darker.",
+    "focus_states": "Visible focus rings (ring-2 ring-primary) are mandatory for keyboard navigation.",
+    "aria_labels": "Required for all icon-only buttons."
+  },
+  "instructions_to_main_agent": [
+    "1. UPDATE /app/frontend/src/index.css with the CSS variables defined in 'colors.palette'. Ensure .dark class is used or set :root to these dark values by default.",
+    "2. INSTALL 'lucide-react' and 'recharts' and 'framer-motion' and 'clsx' and 'tailwind-merge' if not present.",
+    "3. USE 'Barlow Condensed' for all headings (h1-h3) and 'Manrope' for body text. Add the Google Fonts link to index.html.",
+    "4. CREATE a 'Layout' component that enforces the dark theme and max-width constraints.",
+    "5. GAMIFICATION: Use 'Progress' component from shadcn for XP bars. Style it with the 'accent' color (#D9F99D).",
+    "6. CHAT: Implement the chat interface with a fixed height container, scrollable message area, and sticky input at bottom. Use 'zinc-900' for the message bubbles.",
+    "7. DASHBOARD: Use a Bento Grid layout. Top left: Level/Badge. Top Right: Streak. Center: Workout Progress.",
+    "8. NAVIGATION: Use a sidebar for desktop and a bottom nav for mobile. Icons: Home, Workouts, Nutrition, Chat, Profile.",
+    "9. DATA-TESTID: Add data-testid attributes to all interactive elements (buttons, inputs, links)."
+  ],
+  "universal_guidelines": [
+    "Do not use gradients for text.",
+    "Avoid 'center-everything'. Use left alignment for text to create a strong vertical axis.",
+    "Use 'gap-6' or 'gap-8' for layout spacing to let the content breathe.",
+    "Input fields should have a height of 'h-12' for better touch targets.",
+    "Toast notifications (Sonner) should be used for all success/error states."
+  ]
+}
