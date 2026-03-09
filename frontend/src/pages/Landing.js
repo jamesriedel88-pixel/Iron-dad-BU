@@ -97,6 +97,53 @@ const Landing = () => {
         </div>
       </div>
 
+      {/* Pricing Section */}
+      <div className="py-24 px-4 sm:px-6 lg:px-8 bg-zinc-900/50">
+        <div className="max-w-4xl mx-auto text-center">
+          <h2 className="text-3xl md:text-5xl font-bold tracking-tight uppercase mb-6">
+            Transform Your Life
+          </h2>
+          <p className="text-base md:text-lg text-muted-foreground mb-8">
+            For only <span className="text-4xl font-extrabold text-primary">$50</span> per month
+          </p>
+          <div className="max-w-2xl mx-auto bg-card border border-border rounded-sm p-8 mb-8">
+            <div className="space-y-4 text-left">
+              <div className="flex items-start gap-3">
+                <div className="w-6 h-6 rounded-full bg-accent flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-black font-bold text-sm">✓</span>
+                </div>
+                <p className="text-muted-foreground">Unlimited access to all workout programs</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-6 h-6 rounded-full bg-accent flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-black font-bold text-sm">✓</span>
+                </div>
+                <p className="text-muted-foreground">Gamified progress tracking with levels and badges</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-6 h-6 rounded-full bg-accent flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-black font-bold text-sm">✓</span>
+                </div>
+                <p className="text-muted-foreground">Expert nutrition guidance and meal tips</p>
+              </div>
+              <div className="flex items-start gap-3">
+                <div className="w-6 h-6 rounded-full bg-accent flex items-center justify-center flex-shrink-0 mt-1">
+                  <span className="text-black font-bold text-sm">✓</span>
+                </div>
+                <p className="text-muted-foreground">Real-time community chat with fellow dads</p>
+              </div>
+            </div>
+          </div>
+          <Button
+            data-testid="pricing-get-started-button"
+            onClick={() => navigate('/signup')}
+            className="bg-primary text-white hover:bg-primary/90 rounded-sm font-bold uppercase tracking-wider h-12 px-8 text-base"
+          >
+            Start Your Journey
+          </Button>
+        </div>
+      </div>
+
       {/* CTA Section */}
       <div className="py-24 px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto text-center">
