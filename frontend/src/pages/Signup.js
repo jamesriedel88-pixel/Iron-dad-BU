@@ -45,7 +45,7 @@ const Signup = () => {
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <Card className="w-full max-w-md bg-card border-border">
         <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-bold uppercase tracking-tight">Dad bod to Weapon</CardTitle>
+          <CardTitle className="text-3xl font-bold uppercase tracking-tight">Dad Bod to Weapon</CardTitle>
           <CardDescription>Start your transformation journey today</CardDescription>
         </CardHeader>
         <CardContent>
