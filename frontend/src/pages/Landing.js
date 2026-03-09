@@ -77,11 +77,20 @@ const Landing = () => {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight uppercase mb-4">Why Dad Bod to Weapon?</h2>
           <p className="text-base md:text-lg text-muted-foreground mb-4">Everything you need to transform your body and mindset</p>
-          <p className="text-sm md:text-base text-muted-foreground max-w-3xl mx-auto">
+          <p className="text-sm md:text-base text-muted-foreground max-w-3xl mx-auto mb-8">
             Designed by a <span className="text-primary font-semibold">Personal Trainer with over 15 years of experience</span>, 
             <span className="text-primary font-semibold"> Gym Owner</span>, and most importantly, a <span className="text-primary font-semibold">Dad</span> who 
             understands the challenges of balancing fitness with family life.
           </p>
+          
+          {/* Trainer Photo */}
+          <div className="max-w-2xl mx-auto mb-12">
+            <img 
+              src="https://customer-assets.emergentagent.com/job_fit-dad-forge/artifacts/1whs245i_3478211F-BA62-47A1-967D-5C2159D401DA.JPG"
+              alt="Personal trainer instructing class in gym"
+              className="w-full h-auto rounded-sm border border-border shadow-lg"
+            />
+          </div>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
