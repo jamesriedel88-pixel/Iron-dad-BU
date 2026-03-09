@@ -76,7 +76,12 @@ const Landing = () => {
       <div className="py-24 px-4 sm:px-6 lg:px-8 max-w-7xl mx-auto">
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight uppercase mb-4">Why Dad Bod to Weapon?</h2>
-          <p className="text-base md:text-lg text-muted-foreground">Everything you need to transform your body and mindset</p>
+          <p className="text-base md:text-lg text-muted-foreground mb-4">Everything you need to transform your body and mindset</p>
+          <p className="text-sm md:text-base text-muted-foreground max-w-3xl mx-auto">
+            Designed by a <span className="text-primary font-semibold">Personal Trainer with over 15 years of experience</span>, 
+            <span className="text-primary font-semibold"> Gym Owner</span>, and most importantly, a <span className="text-primary font-semibold">Dad</span> who 
+            understands the challenges of balancing fitness with family life.
+          </p>
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
