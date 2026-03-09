@@ -22,8 +22,10 @@ class FitnessAppTester:
         if headers:
             test_headers.update(headers)
         
+        # Use cookies for session token instead of Authorization header
+        cookies = {}
         if self.session_token:
-            test_headers['Authorization'] = f'Bearer {self.session_token}'
+            cookies['session_token'] = self.session_token
 
         self.tests_run += 1
         print(f"\n🔍 Testing {name}...")
@@ -31,13 +33,13 @@ class FitnessAppTester:
         
         try:
             if method == 'GET':
-                response = requests.get(url, headers=test_headers)
+                response = requests.get(url, headers=test_headers, cookies=cookies)
             elif method == 'POST':
-                response = requests.post(url, json=data, headers=test_headers)
+                response = requests.post(url, json=data, headers=test_headers, cookies=cookies)
             elif method == 'PUT':
-                response = requests.put(url, json=data, headers=test_headers)
+                response = requests.put(url, json=data, headers=test_headers, cookies=cookies)
             elif method == 'DELETE':
-                response = requests.delete(url, headers=test_headers)
+                response = requests.delete(url, headers=test_headers, cookies=cookies)
 
             success = response.status_code == expected_status
             if success:
