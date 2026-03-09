@@ -329,18 +329,20 @@ def main():
     # Test basic endpoints without authentication
     print("\n📋 PHASE 1: Unauthenticated Endpoints")
     tester.test_auth_me_without_token()
-    tester.test_signup()
-    tester.test_login()
     tester.test_session_exchange()
     
-    # Create test session for authenticated tests
-    print("\n📋 PHASE 2: Setting up Test Session")
-    if not tester.create_test_session_manually():
-        print("❌ Cannot proceed without test session")
+    # Test signup and login flow
+    print("\n📋 PHASE 2: Authentication Flow")
+    tester.test_signup_and_login_flow()
+    
+    # Get session token from actual signup
+    print("\n📋 PHASE 3: Setting up Authenticated Session")
+    if not tester.get_session_from_signup():
+        print("❌ Cannot proceed without valid session")
         return 1
     
     # Test authenticated endpoints
-    print("\n📋 PHASE 3: Authenticated Endpoints")
+    print("\n📋 PHASE 4: Authenticated Endpoints")
     tester.test_auth_me_with_token()
     tester.test_get_workouts()
     tester.test_create_workout()
