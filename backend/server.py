@@ -473,8 +473,11 @@ async def get_chat_messages(limit: int = 50, session_token: Optional[str] = Cook
     return messages
 
 @app.websocket("/ws/chat")
-async def websocket_chat(websocket: WebSocket, token: str):
+async def websocket_chat(websocket: WebSocket, token: Optional[str] = None):
     try:
+        if not token:
+            await websocket.close(code=1008)
+            return
         user = await get_current_user(session_token=token)
     except:
         await websocket.close(code=1008)
