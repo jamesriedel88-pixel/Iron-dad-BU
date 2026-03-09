@@ -283,62 +283,41 @@ class FitnessAppTester:
         
         return success
 
-    def create_test_session_manually(self):
-        """Create a test session using MongoDB directly for testing"""
-        print("\n🔧 Creating test session manually...")
-        
-        import subprocess
+    def get_session_from_signup(self):
+        """Get session token from actual signup process"""
         timestamp = int(time.time())
-        user_id = f"test-user-{timestamp}"
-        session_token = f"test_session_{timestamp}"
-        email = f"test.user.{timestamp}@example.com"
+        self.test_email = f"test.user.{timestamp}@example.com"
+        self.test_password = "TestPass123!"
         
-        mongo_script = f"""
-        use('test_database');
-        var userId = '{user_id}';
-        var sessionToken = '{session_token}';
-        var email = '{email}';
+        # Use requests.Session to capture cookies
+        session = requests.Session()
         
-        db.users.insertOne({{
-          user_id: userId,
-          email: email,
-          name: 'Test User',
-          picture: 'https://via.placeholder.com/150',
-          created_at: new Date().toISOString(),
-          level: 1,
-          workouts_completed: 0,
-          points: 0,
-          current_badge: 'Beginner'
-        }});
+        signup_data = {
+            "email": self.test_email,
+            "password": self.test_password,
+            "name": "Test User"
+        }
         
-        db.user_sessions.insertOne({{
-          user_id: userId,
-          session_token: sessionToken,
-          expires_at: new Date(Date.now() + 7*24*60*60*1000),
-          created_at: new Date()
-        }});
-        
-        print('Session token: ' + sessionToken);
-        print('User ID: ' + userId);
-        """
+        print(f"\n🔧 Creating user via signup API...")
+        url = f"{self.base_url}/auth/signup"
         
         try:
-            result = subprocess.run(['mongosh', '--eval', mongo_script], 
-                                  capture_output=True, text=True, timeout=30)
-            
-            if result.returncode == 0:
-                self.session_token = session_token
-                self.user_id = user_id
-                print(f"✅ Test session created successfully")
-                print(f"   Session token: {session_token}")
-                print(f"   User ID: {user_id}")
-                return True
+            response = session.post(url, json=signup_data)
+            if response.status_code == 200:
+                # Check for session token in cookies
+                session_cookie = session.cookies.get('session_token')
+                if session_cookie:
+                    self.session_token = session_cookie
+                    print(f"✅ Got session token from signup: {session_cookie[:20]}...")
+                    return True
+                else:
+                    print("❌ No session token in cookies")
+                    return False
             else:
-                print(f"❌ Failed to create test session: {result.stderr}")
+                print(f"❌ Signup failed: {response.status_code} - {response.text}")
                 return False
-                
         except Exception as e:
-            print(f"❌ Error creating test session: {str(e)}")
+            print(f"❌ Error during signup: {str(e)}")
             return False
 
 def main():
