@@ -62,12 +62,16 @@ class FitnessAppTester:
             print(f"❌ Failed - Error: {str(e)}")
             return False, {}
 
-    def test_signup(self):
-        """Test user signup"""
+    def test_signup_and_login_flow(self):
+        """Test complete signup and login flow"""
         timestamp = int(time.time())
+        self.test_email = f"test.user.{timestamp}@example.com"
+        self.test_password = "TestPass123!"
+        
+        # Test signup
         test_data = {
-            "email": f"test.user.{timestamp}@example.com",
-            "password": "TestPass123!",
+            "email": self.test_email,
+            "password": self.test_password,
             "name": "Test User"
         }
         
@@ -79,18 +83,13 @@ class FitnessAppTester:
             data=test_data
         )
         
-        if success:
-            # Extract session token from cookies if available
-            print("   Signup successful - user created")
+        if not success:
+            return False
         
-        return success
-
-    def test_login(self):
-        """Test user login"""
-        timestamp = int(time.time())
-        test_data = {
-            "email": f"test.user.{timestamp}@example.com",
-            "password": "TestPass123!"
+        # Test login with same credentials
+        login_data = {
+            "email": self.test_email,
+            "password": self.test_password
         }
         
         success, response = self.run_test(
@@ -98,7 +97,7 @@ class FitnessAppTester:
             "POST",
             "auth/login",
             200,
-            data=test_data
+            data=login_data
         )
         
         return success
