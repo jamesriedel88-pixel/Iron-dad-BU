@@ -51,7 +51,18 @@ const Chat = () => {
   useEffect(() => {
     if (!user) return;
 
-    const connectWebSocket = () => {
+    const connectWebSocket = async () => {
+      try {
+        const response = await axios.get(`${BACKEND_URL}/api/auth/me`, { withCredentials: true });
+        if (!response.data) {
+          toast.error('Authentication required');
+          return;
+        }
+      } catch (error) {
+        toast.error('Failed to authenticate for chat');
+        return;
+      }
+
       const getCookie = (name) => {
         const value = `; ${document.cookie}`;
         const parts = value.split(`; ${name}=`);
@@ -59,13 +70,9 @@ const Chat = () => {
       };
 
       const token = getCookie('session_token');
-      if (!token) {
-        toast.error('No session token found');
-        return;
-      }
-
+      
       const wsUrl = BACKEND_URL.replace('https://', 'wss://').replace('http://', 'ws://');
-      const socket = new WebSocket(`${wsUrl}/ws/chat?token=${token}`);
+      const socket = new WebSocket(`${wsUrl}/ws/chat${token ? `?token=${token}` : ''}`);
 
       socket.onopen = () => {
         console.log('WebSocket connected');
