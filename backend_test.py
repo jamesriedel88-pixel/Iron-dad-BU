@@ -287,17 +287,18 @@ class FitnessAppTester:
 
     def get_session_from_signup(self):
         """Get session token from actual signup process"""
-        timestamp = int(time.time())
-        self.test_email = f"test.user.{timestamp}@example.com"
-        self.test_password = "TestPass123!"
+        import time
+        timestamp = int(time.time() * 1000)  # Use milliseconds for uniqueness
+        test_email = f"test.session.{timestamp}@example.com"
+        test_password = "TestPass123!"
         
         # Use requests.Session to capture cookies
         session = requests.Session()
         
         signup_data = {
-            "email": self.test_email,
-            "password": self.test_password,
-            "name": "Test User"
+            "email": test_email,
+            "password": test_password,
+            "name": "Test Session User"
         }
         
         print(f"\n🔧 Creating user via signup API...")
