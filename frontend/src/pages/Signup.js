@@ -46,7 +46,7 @@ const Signup = () => {
       <Card className="w-full max-w-md bg-card border-border">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-bold uppercase tracking-tight">Iron Dad</CardTitle>
-          <CardDescription>Start your transformation journey today</CardDescription>
+          <CardDescription>Join the Dad Bod to Weapon Program today</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSignup} className="space-y-4">

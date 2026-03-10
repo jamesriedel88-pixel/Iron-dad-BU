@@ -45,7 +45,7 @@ const Login = () => {
       <Card className="w-full max-w-md bg-card border-border">
         <CardHeader className="text-center">
           <CardTitle className="text-3xl font-bold uppercase tracking-tight">Iron Dad</CardTitle>
-          <CardDescription>Login to continue your transformation</CardDescription>
+          <CardDescription>Dad Bod to Weapon Program - Continue your transformation</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">
