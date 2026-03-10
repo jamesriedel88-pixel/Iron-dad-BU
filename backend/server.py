@@ -437,16 +437,18 @@ async def get_workout_progress(session_token: Optional[str] = Cookie(None), auth
     
     completions = await db.workout_completions.find({"user_id": user.user_id}, {"_id": 0}).to_list(1000)
     
-    workouts_in_current_level = user.workouts_completed % 30
-    workouts_until_next_level = 30 - workouts_in_current_level
-    progress_percentage = (workouts_in_current_level / 30) * 100
+    current_level, current_badge, workouts_in_current_level, workouts_for_next_level = calculate_level_and_badge(user.workouts_completed)
+    
+    workouts_until_next_level = workouts_for_next_level - workouts_in_current_level
+    progress_percentage = (workouts_in_current_level / workouts_for_next_level) * 100 if workouts_for_next_level > 0 else 100
     
     return {
         "total_workouts_completed": user.workouts_completed,
-        "current_level": user.level,
-        "current_badge": user.current_badge,
+        "current_level": current_level,
+        "current_badge": current_badge,
         "points": user.points,
         "workouts_in_current_level": workouts_in_current_level,
+        "workouts_for_next_level": workouts_for_next_level,
         "workouts_until_next_level": workouts_until_next_level,
         "progress_percentage": progress_percentage,
         "completed_workout_ids": [c["workout_id"] for c in completions]
