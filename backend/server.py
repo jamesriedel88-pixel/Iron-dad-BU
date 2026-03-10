@@ -397,6 +397,72 @@ async def update_profile(profile_data: UpdateProfileRequest, session_token: Opti
     
     return {"message": "Profile updated successfully"}
 
+@api_router.put("/profile/health-score")
+async def update_health_score(health_data: UpdateHealthScoreRequest, session_token: Optional[str] = Cookie(None), authorization: Optional[str] = None):
+    user = await get_current_user(session_token, authorization)
+    
+    update_fields = {}
+    if health_data.health_sleep is not None:
+        update_fields["health_sleep"] = health_data.health_sleep
+    if health_data.health_physical_activity is not None:
+        update_fields["health_physical_activity"] = health_data.health_physical_activity
+    if health_data.health_water_intake is not None:
+        update_fields["health_water_intake"] = health_data.health_water_intake
+    if health_data.health_smoker is not None:
+        update_fields["health_smoker"] = health_data.health_smoker
+    if health_data.health_nutrition is not None:
+        update_fields["health_nutrition"] = health_data.health_nutrition
+    if health_data.health_mental is not None:
+        update_fields["health_mental"] = health_data.health_mental
+    if health_data.health_time is not None:
+        update_fields["health_time"] = health_data.health_time
+    
+    if update_fields:
+        await db.users.update_one(
+            {"user_id": user.user_id},
+            {"$set": update_fields}
+        )
+    
+    return {"message": "Health score updated successfully"}
+
+@api_router.get("/profile/health-score")
+async def get_health_score(session_token: Optional[str] = Cookie(None), authorization: Optional[str] = None):
+    user = await get_current_user(session_token, authorization)
+    
+    # Calculate Dad Health Score (average of all metrics out of 10)
+    metrics = []
+    
+    if user.health_sleep is not None:
+        metrics.append(user.health_sleep)
+    if user.health_physical_activity is not None:
+        metrics.append(user.health_physical_activity)
+    if user.health_water_intake is not None:
+        metrics.append(user.health_water_intake)
+    if user.health_smoker is not None:
+        # If smoker/vaper, score is 0, if not, score is 10
+        metrics.append(0 if user.health_smoker else 10)
+    if user.health_nutrition is not None:
+        metrics.append(user.health_nutrition)
+    if user.health_mental is not None:
+        metrics.append(user.health_mental)
+    if user.health_time is not None:
+        metrics.append(user.health_time)
+    
+    total_score = round(sum(metrics) / len(metrics), 1) if metrics else 0
+    
+    return {
+        "sleep": user.health_sleep,
+        "physical_activity": user.health_physical_activity,
+        "water_intake": user.health_water_intake,
+        "smoker": user.health_smoker,
+        "nutrition": user.health_nutrition,
+        "mental_health": user.health_mental,
+        "time": user.health_time,
+        "total_score": total_score,
+        "max_score": 10
+    }
+
+
     return response
 
 # Workout endpoints
