@@ -1,26 +1,33 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import { Trophy, Zap, Target, Award } from 'lucide-react';
+import { Trophy, Zap, Target, Award, AlertCircle } from 'lucide-react';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Progress } from '@/components/ui/progress';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
+import { Button } from '@/components/ui/button';
+import { useNavigate } from 'react-router-dom';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
 const Dashboard = () => {
   const [user, setUser] = useState(null);
   const [progress, setProgress] = useState(null);
+  const [healthScore, setHealthScore] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const [userRes, progressRes] = await Promise.all([
+        const [userRes, progressRes, healthRes] = await Promise.all([
           axios.get(`${BACKEND_URL}/api/auth/me`, { withCredentials: true }),
-          axios.get(`${BACKEND_URL}/api/workouts/progress`, { withCredentials: true })
+          axios.get(`${BACKEND_URL}/api/workouts/progress`, { withCredentials: true }),
+          axios.get(`${BACKEND_URL}/api/profile/health-score`, { withCredentials: true })
         ]);
         setUser(userRes.data);
         setProgress(progressRes.data);
+        setHealthScore(healthRes.data);
       } catch (error) {
         console.error('Failed to fetch data:', error);
       } finally {
