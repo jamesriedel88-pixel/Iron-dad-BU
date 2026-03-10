@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import { Plus, Check, Clock, Flame } from 'lucide-react';
+import { Plus, Check, Clock, Flame, Share2 } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -18,6 +18,8 @@ const Workouts = () => {
   const [progress, setProgress] = useState(null);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [shareDialogOpen, setShareDialogOpen] = useState(false);
+  const [completedWorkoutData, setCompletedWorkoutData] = useState(null);
   const [formData, setFormData] = useState({
     title: '',
     description: '',
@@ -66,11 +68,21 @@ const Workouts = () => {
 
   const handleCompleteWorkout = async (workoutId) => {
     try {
+      const workout = workouts.find(w => w.workout_id === workoutId);
       const response = await axios.post(
         `${BACKEND_URL}/api/workouts/complete`,
         { workout_id: workoutId },
         { withCredentials: true }
       );
+      
+      // Store data for sharing
+      setCompletedWorkoutData({
+        workoutTitle: workout.title,
+        level: response.data.level,
+        badge: response.data.badge,
+        points: response.data.points,
+        leveledUp: response.data.leveled_up
+      });
       
       if (response.data.leveled_up) {
         toast.success(`🎉 Level Up! You're now ${response.data.badge} - Level ${response.data.level}!`);
@@ -78,10 +90,48 @@ const Workouts = () => {
         toast.success(`Workout completed! +10 points`);
       }
       
+      // Show share dialog
+      setShareDialogOpen(true);
+      
       fetchData();
     } catch (error) {
       toast.error(error.response?.data?.detail || 'Failed to complete workout');
     }
+  };
+
+  const handleShareToInstagram = async () => {
+    if (!completedWorkoutData) return;
+
+    const shareText = `💪 Just completed "${completedWorkoutData.workoutTitle}" on Dad Bod to Weapon!\n\n🏆 Level ${completedWorkoutData.level} - ${completedWorkoutData.badge}\n⚡ ${completedWorkoutData.points} Total Points\n\n${completedWorkoutData.leveledUp ? '🎉 LEVEL UP! ' : ''}Be the strong dad your kids look up to!\n\n#DadBodToWeapon #FitDad #DadFitness #WorkoutComplete`;
+
+    // Try native share API (works on mobile)
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Dad Bod to Weapon',
+          text: shareText,
+        });
+        toast.success('Shared successfully!');
+        setShareDialogOpen(false);
+      } catch (error) {
+        if (error.name !== 'AbortError') {
+          // Fallback to clipboard
+          copyToClipboard(shareText);
+        }
+      }
+    } else {
+      // Fallback to clipboard for desktop
+      copyToClipboard(shareText);
+    }
+  };
+
+  const copyToClipboard = (text) => {
+    navigator.clipboard.writeText(text).then(() => {
+      toast.success('Copied to clipboard! Paste it on Instagram.');
+      setShareDialogOpen(false);
+    }).catch(() => {
+      toast.error('Failed to copy');
+    });
   };
 
   const isWorkoutCompleted = (workoutId) => {
@@ -211,6 +261,52 @@ const Workouts = () => {
             </DialogContent>
           </Dialog>
         </div>
+
+        {/* Share Dialog */}
+        <Dialog open={shareDialogOpen} onOpenChange={setShareDialogOpen}>
+          <DialogContent className="bg-card border-border">
+            <DialogHeader>
+              <DialogTitle>Share Your Achievement! 🎉</DialogTitle>
+              <DialogDescription>
+                Let everyone know about your progress on Instagram
+              </DialogDescription>
+            </DialogHeader>
+            {completedWorkoutData && (
+              <div className="space-y-4">
+                <div className="bg-zinc-900/50 border border-zinc-800 rounded-sm p-6 text-center">
+                  <div className="text-4xl mb-3">
+                    {completedWorkoutData.leveledUp ? '🎉' : '💪'}
+                  </div>
+                  <h3 className="text-xl font-bold mb-2">{completedWorkoutData.workoutTitle}</h3>
+                  {completedWorkoutData.leveledUp && (
+                    <p className="text-accent font-bold mb-2">LEVEL UP!</p>
+                  )}
+                  <p className="text-muted-foreground">
+                    Level {completedWorkoutData.level} - {completedWorkoutData.badge}
+                  </p>
+                  <p className="text-primary font-semibold mt-2">
+                    {completedWorkoutData.points} Total Points
+                  </p>
+                </div>
+                <Button
+                  data-testid="share-instagram-button"
+                  onClick={handleShareToInstagram}
+                  className="w-full bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white hover:opacity-90 rounded-sm font-bold uppercase tracking-wider h-12"
+                >
+                  <Share2 className="w-5 h-5 mr-2" />
+                  Share to Instagram
+                </Button>
+                <Button
+                  data-testid="skip-share-button"
+                  onClick={() => setShareDialogOpen(false)}
+                  className="w-full bg-secondary text-white hover:bg-secondary/80 rounded-sm font-medium h-12"
+                >
+                  Skip for Now
+                </Button>
+              </div>
+            )}
+          </DialogContent>
+        </Dialog>
 
         {/* Workouts Grid */}
         {workouts.length === 0 ? (
