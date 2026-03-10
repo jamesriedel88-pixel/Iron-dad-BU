@@ -169,7 +169,7 @@ const Profile = () => {
                       type="text"
                       value={formData.height}
                       onChange={(e) => setFormData({ ...formData, height: e.target.value })}
-                      placeholder="e.g., 6'0\" or 183cm"
+                      placeholder="e.g., 6ft 0in or 183cm"
                       className="bg-zinc-900/50 border-zinc-800 focus:border-primary focus:ring-1 focus:ring-primary rounded-sm h-12"
                       required
                     />
