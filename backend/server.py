@@ -408,7 +408,7 @@ async def complete_workout(data: CompleteWorkoutRequest, session_token: Optional
     
     new_workouts_completed = user.workouts_completed + 1
     new_points = user.points + 10
-    new_level, new_badge = calculate_level_and_badge(new_workouts_completed)
+    new_level, new_badge, workouts_in_level, workouts_for_next = calculate_level_and_badge(new_workouts_completed)
     
     await db.users.update_one(
         {"user_id": user.user_id},
