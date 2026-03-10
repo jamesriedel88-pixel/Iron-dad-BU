@@ -66,6 +66,13 @@ class User(BaseModel):
     height: Optional[str] = None
     weight: Optional[str] = None
     occupation: Optional[str] = None
+    health_sleep: Optional[int] = None
+    health_physical_activity: Optional[int] = None
+    health_water_intake: Optional[int] = None
+    health_smoker: Optional[bool] = None
+    health_nutrition: Optional[int] = None
+    health_mental: Optional[int] = None
+    health_time: Optional[int] = None
 
 class UserSignup(BaseModel):
     email: EmailStr
@@ -136,6 +143,15 @@ class UpdateProfileRequest(BaseModel):
     height: Optional[str] = None
     weight: Optional[str] = None
     occupation: Optional[str] = None
+
+class UpdateHealthScoreRequest(BaseModel):
+    health_sleep: Optional[int] = None
+    health_physical_activity: Optional[int] = None
+    health_water_intake: Optional[int] = None
+    health_smoker: Optional[bool] = None
+    health_nutrition: Optional[int] = None
+    health_mental: Optional[int] = None
+    health_time: Optional[int] = None
 
 # Helper functions
 def get_password_hash(password: str) -> str:
