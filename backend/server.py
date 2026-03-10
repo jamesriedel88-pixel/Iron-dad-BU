@@ -163,21 +163,43 @@ async def get_current_user(session_token: Optional[str] = Cookie(None), authoriz
     
     return User(**user_doc)
 
-def calculate_level_and_badge(workouts_completed: int) -> tuple[int, str]:
-    level = (workouts_completed // 30) + 1
+def calculate_level_and_badge(workouts_completed: int) -> tuple[int, str, int, int]:
+    # Progressive level thresholds: [cumulative_workouts, level, badge]
+    levels = [
+        (0, 1, "Beginner"),          # Level 1: 0-4 workouts
+        (5, 2, "Warrior"),           # Level 2: 5-14 workouts
+        (15, 3, "Champion"),         # Level 3: 15-34 workouts
+        (35, 4, "Legend"),           # Level 4: 35-64 workouts
+        (65, 5, "Weapon Master"),    # Level 5: 65-104 workouts
+        (105, 6, "Ultimate Weapon")  # Level 6: 105-154 workouts
+    ]
     
-    if level == 1:
-        badge = "Beginner"
-    elif level == 2:
-        badge = "Warrior"
-    elif level == 3:
-        badge = "Champion"
-    elif level == 4:
-        badge = "Legend"
-    else:
-        badge = "Weapon Master"
+    # Workouts needed for each level
+    level_requirements = {
+        1: 5,   # Need 5 workouts to reach Level 2
+        2: 10,  # Need 10 more workouts to reach Level 3
+        3: 20,  # Need 20 more workouts to reach Level 4
+        4: 30,  # Need 30 more workouts to reach Level 5
+        5: 40,  # Need 40 more workouts to reach Level 6
+        6: 50   # Need 50 more workouts (max level)
+    }
     
-    return level, badge
+    current_level = 1
+    current_badge = "Beginner"
+    workouts_in_current_level = workouts_completed
+    
+    # Find current level based on total workouts
+    for threshold, level, badge in reversed(levels):
+        if workouts_completed >= threshold:
+            current_level = level
+            current_badge = badge
+            workouts_in_current_level = workouts_completed - threshold
+            break
+    
+    # Get workouts needed for next level
+    workouts_for_next_level = level_requirements.get(current_level, 50)
+    
+    return current_level, current_badge, workouts_in_current_level, workouts_for_next_level
 
 # Auth endpoints
 @api_router.post("/auth/signup")
