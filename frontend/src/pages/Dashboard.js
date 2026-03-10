@@ -100,7 +100,7 @@ const Dashboard = () => {
                   Level Progress
                 </CardTitle>
                 <CardDescription>
-                  {progress?.workouts_in_current_level} / 30 workouts completed
+                  {progress?.workouts_in_current_level} / {progress?.workouts_for_next_level} workouts completed
                 </CardDescription>
               </CardHeader>
               <CardContent>
