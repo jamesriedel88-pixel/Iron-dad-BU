@@ -120,10 +120,20 @@ const Profile = () => {
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <h3 className="font-semibold mb-2">About DadWeapon Levels</h3>
+              <h3 className="font-semibold mb-2">About Dad Bod to Weapon Levels</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
-                Complete 30 workouts to level up and earn new badges. Each workout gives you 10 points.
-                Track your progress on the dashboard and compete with other dads in the community.
+                Progress through 6 levels by completing workouts. Each level requires more dedication:
+              </p>
+              <ul className="text-sm text-muted-foreground mt-2 space-y-1 ml-4">
+                <li>• Level 1→2: Complete 5 workouts</li>
+                <li>• Level 2→3: Complete 10 more workouts (15 total)</li>
+                <li>• Level 3→4: Complete 20 more workouts (35 total)</li>
+                <li>• Level 4→5: Complete 30 more workouts (65 total)</li>
+                <li>• Level 5→6: Complete 40 more workouts (105 total)</li>
+                <li>• Level 6+: Complete 50 more workouts (155 total)</li>
+              </ul>
+              <p className="text-sm text-muted-foreground mt-2">
+                Each workout gives you 10 points. Track your progress on the dashboard and compete with other dads in the community.
               </p>
             </div>
             <Separator />
@@ -148,7 +158,11 @@ const Profile = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">🔥</span>
-                  <span className="text-muted-foreground">Level 5+ - Weapon Master</span>
+                  <span className="text-muted-foreground">Level 5 - Weapon Master</span>
+                </div>
+                <div className="flex items-center gap-2">
+                  <span className="text-2xl">⚡</span>
+                  <span className="text-muted-foreground">Level 6 - Ultimate Weapon</span>
                 </div>
               </div>
             </div>
