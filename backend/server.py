@@ -358,6 +358,29 @@ async def logout(session_token: Optional[str] = Cookie(None)):
     
     response = Response(content=json.dumps({"message": "Logged out"}), media_type="application/json")
     response.delete_cookie(key="session_token", path="/")
+
+@api_router.put("/profile")
+async def update_profile(profile_data: UpdateProfileRequest, session_token: Optional[str] = Cookie(None), authorization: Optional[str] = None):
+    user = await get_current_user(session_token, authorization)
+    
+    update_fields = {}
+    if profile_data.before_photo is not None:
+        update_fields["before_photo"] = profile_data.before_photo
+    if profile_data.height is not None:
+        update_fields["height"] = profile_data.height
+    if profile_data.weight is not None:
+        update_fields["weight"] = profile_data.weight
+    if profile_data.occupation is not None:
+        update_fields["occupation"] = profile_data.occupation
+    
+    if update_fields:
+        await db.users.update_one(
+            {"user_id": user.user_id},
+            {"$set": update_fields}
+        )
+    
+    return {"message": "Profile updated successfully"}
+
     return response
 
 # Workout endpoints
