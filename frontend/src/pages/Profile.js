@@ -349,7 +349,7 @@ const Profile = () => {
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <h3 className="font-semibold mb-2">About Dad Bod to Weapon Levels</h3>
+              <h3 className="font-semibold mb-2">About Iron Dad Levels</h3>
               <p className="text-sm text-muted-foreground leading-relaxed">
                 Progress through 6 levels by completing workouts. Each level requires more dedication:
               </p>

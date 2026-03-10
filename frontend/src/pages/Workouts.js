@@ -102,13 +102,13 @@ const Workouts = () => {
   const handleShareToInstagram = async () => {
     if (!completedWorkoutData) return;
 
-    const shareText = `💪 Just completed "${completedWorkoutData.workoutTitle}" on Dad Bod to Weapon!\n\n🏆 Level ${completedWorkoutData.level} - ${completedWorkoutData.badge}\n⚡ ${completedWorkoutData.points} Total Points\n\n${completedWorkoutData.leveledUp ? '🎉 LEVEL UP! ' : ''}Be the strong dad your kids look up to!\n\n#DadBodToWeapon #FitDad #DadFitness #WorkoutComplete`;
+    const shareText = `💪 Just completed "${completedWorkoutData.workoutTitle}" on Iron Dad!\n\n🏆 Level ${completedWorkoutData.level} - ${completedWorkoutData.badge}\n⚡ ${completedWorkoutData.points} Total Points\n\n${completedWorkoutData.leveledUp ? '🎉 LEVEL UP! ' : ''}Be the strong dad your kids look up to!\n\n#IronDad #FitDad #DadFitness #WorkoutComplete`;
 
     // Try native share API (works on mobile)
     if (navigator.share) {
       try {
         await navigator.share({
-          title: 'Dad Bod to Weapon',
+          title: 'Iron Dad',
           text: shareText,
         });
         toast.success('Shared successfully!');
