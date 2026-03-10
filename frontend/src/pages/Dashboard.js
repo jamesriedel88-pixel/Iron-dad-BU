@@ -66,6 +66,24 @@ const Dashboard = () => {
           <p className="text-base md:text-lg text-muted-foreground">Here's your transformation progress</p>
         </div>
 
+        {/* Health Score Update Reminder */}
+        {healthScore?.needs_update && (
+          <Alert data-testid="health-score-reminder" className="mb-6 border-accent bg-accent/10">
+            <AlertCircle className="h-5 w-5 text-accent" />
+            <AlertTitle className="text-accent font-bold">Time to Update Your Dad Health Score!</AlertTitle>
+            <AlertDescription className="text-foreground">
+              It's been over a month since your last update. Track your progress and see how much you've improved!
+              <Button
+                data-testid="update-health-score-cta"
+                onClick={() => navigate('/profile')}
+                className="mt-3 bg-accent text-black hover:bg-accent/90 rounded-sm font-bold uppercase tracking-wider"
+              >
+                Update Health Score Now
+              </Button>
+            </AlertDescription>
+          </Alert>
+        )}
+
         {/* Bento Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
           {/* Level Card - Spans 6 columns */}
