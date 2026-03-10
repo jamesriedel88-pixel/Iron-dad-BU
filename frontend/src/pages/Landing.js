@@ -51,7 +51,7 @@ const Landing = () => {
               <span className="text-primary">Into A Weapon</span>
             </h1>
             <p className="text-xl md:text-2xl font-semibold text-accent mb-4">
-              Be the strong dad your kids look up to
+              Become the father your kids look up to
             </p>
             <p className="text-base md:text-lg text-muted-foreground max-w-2xl mx-auto mb-8 leading-relaxed">
               Join the brotherhood. Complete workouts, level up, earn badges. Track your progress at your own pace and transform your body.
