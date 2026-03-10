@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { motion } from 'framer-motion';
-import { Plus, Check, Clock, Flame, Share2 } from 'lucide-react';
+import { Plus, Check, Clock, Flame, Lock } from 'lucide-react';
 import { toast } from 'sonner';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
@@ -25,7 +25,8 @@ const Workouts = () => {
     description: '',
     duration_minutes: 30,
     difficulty: 'Intermediate',
-    category: 'Strength'
+    category: 'Strength',
+    required_level: 1
   });
 
   const fetchData = async () => {
@@ -58,7 +59,8 @@ const Workouts = () => {
         description: '',
         duration_minutes: 30,
         difficulty: 'Intermediate',
-        category: 'Strength'
+        category: 'Strength',
+        required_level: 1
       });
       fetchData();
     } catch (error) {
@@ -85,7 +87,11 @@ const Workouts = () => {
       });
       
       if (response.data.leveled_up) {
-        toast.success(`🎉 Level Up! You're now ${response.data.badge} - Level ${response.data.level}!`);
+        if (response.data.newly_unlocked_workouts > 0) {
+          toast.success(`🎉 Level Up! You're now ${response.data.badge} - Level ${response.data.level}! ${response.data.newly_unlocked_workouts} new workout${response.data.newly_unlocked_workouts > 1 ? 's' : ''} unlocked!`);
+        } else {
+          toast.success(`🎉 Level Up! You're now ${response.data.badge} - Level ${response.data.level}!`);
+        }
       } else {
         toast.success(`Workout completed! +10 points`);
       }
@@ -247,6 +253,25 @@ const Workouts = () => {
                       </SelectContent>
                     </Select>
                   </div>
+                  <div>
+                    <Label htmlFor="required_level">Required Level</Label>
+                    <Select
+                      value={formData.required_level.toString()}
+                      onValueChange={(value) => setFormData({ ...formData, required_level: parseInt(value) })}
+                    >
+                      <SelectTrigger data-testid="workout-level-select" className="bg-zinc-900/50 border-zinc-800">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="1">Level 1 - Beginner</SelectItem>
+                        <SelectItem value="2">Level 2 - Warrior</SelectItem>
+                        <SelectItem value="3">Level 3 - Champion</SelectItem>
+                        <SelectItem value="4">Level 4 - Legend</SelectItem>
+                        <SelectItem value="5">Level 5 - Weapon Master</SelectItem>
+                        <SelectItem value="6">Level 6 - Ultimate Weapon</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
                 </div>
                 <DialogFooter className="mt-6">
                   <Button
@@ -328,7 +353,16 @@ const Workouts = () => {
                 >
                   <CardHeader>
                     <div className="flex justify-between items-start mb-2">
-                      <CardTitle className="text-xl">{workout.title}</CardTitle>
+                      <div className="flex-1">
+                        <CardTitle className="text-xl">{workout.title}</CardTitle>
+                        {workout.required_level > 1 && (
+                          <div className="mt-2">
+                            <span className="bg-primary/20 text-primary border border-primary/50 rounded-full px-2 py-1 text-xs font-bold uppercase tracking-wider">
+                              Level {workout.required_level}
+                            </span>
+                          </div>
+                        )}
+                      </div>
                       {isWorkoutCompleted(workout.workout_id) && (
                         <Check className="w-6 h-6 text-accent" data-testid="completed-check" />
                       )}
