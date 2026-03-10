@@ -75,6 +75,7 @@ class User(BaseModel):
     health_time: Optional[int] = None
     health_fitness: Optional[int] = None
     health_strength: Optional[int] = None
+    health_score_last_updated: Optional[datetime] = None
 
 class UserSignup(BaseModel):
     email: EmailStr
@@ -425,6 +426,9 @@ async def update_health_score(health_data: UpdateHealthScoreRequest, session_tok
     if health_data.health_strength is not None:
         update_fields["health_strength"] = health_data.health_strength
     
+    # Update the last updated timestamp
+    update_fields["health_score_last_updated"] = datetime.now(timezone.utc)
+    
     if update_fields:
         await db.users.update_one(
             {"user_id": user.user_id},
@@ -462,6 +466,23 @@ async def get_health_score(session_token: Optional[str] = Cookie(None), authoriz
     
     total_score = round(sum(metrics) / len(metrics), 1) if metrics else 0
     
+    # Check if update is needed (monthly)
+    needs_update = False
+    last_updated = user.health_score_last_updated
+    
+    if last_updated:
+        if isinstance(last_updated, str):
+            last_updated = datetime.fromisoformat(last_updated)
+        if last_updated.tzinfo is None:
+            last_updated = last_updated.replace(tzinfo=timezone.utc)
+        
+        # Check if it's been more than 30 days
+        days_since_update = (datetime.now(timezone.utc) - last_updated).days
+        needs_update = days_since_update >= 30
+    elif total_score > 0:
+        # If they have a score but no last_updated date, they need to update
+        needs_update = True
+    
     return {
         "sleep": user.health_sleep,
         "physical_activity": user.health_physical_activity,
@@ -473,7 +494,9 @@ async def get_health_score(session_token: Optional[str] = Cookie(None), authoriz
         "fitness": user.health_fitness,
         "strength": user.health_strength,
         "total_score": total_score,
-        "max_score": 10
+        "max_score": 10,
+        "needs_update": needs_update,
+        "last_updated": last_updated.isoformat() if last_updated else None
     }
 
 
