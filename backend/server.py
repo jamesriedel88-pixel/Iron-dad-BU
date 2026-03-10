@@ -73,6 +73,8 @@ class User(BaseModel):
     health_nutrition: Optional[int] = None
     health_mental: Optional[int] = None
     health_time: Optional[int] = None
+    health_fitness: Optional[int] = None
+    health_strength: Optional[int] = None
 
 class UserSignup(BaseModel):
     email: EmailStr
@@ -152,6 +154,8 @@ class UpdateHealthScoreRequest(BaseModel):
     health_nutrition: Optional[int] = None
     health_mental: Optional[int] = None
     health_time: Optional[int] = None
+    health_fitness: Optional[int] = None
+    health_strength: Optional[int] = None
 
 # Helper functions
 def get_password_hash(password: str) -> str:
@@ -416,6 +420,10 @@ async def update_health_score(health_data: UpdateHealthScoreRequest, session_tok
         update_fields["health_mental"] = health_data.health_mental
     if health_data.health_time is not None:
         update_fields["health_time"] = health_data.health_time
+    if health_data.health_fitness is not None:
+        update_fields["health_fitness"] = health_data.health_fitness
+    if health_data.health_strength is not None:
+        update_fields["health_strength"] = health_data.health_strength
     
     if update_fields:
         await db.users.update_one(
@@ -447,6 +455,10 @@ async def get_health_score(session_token: Optional[str] = Cookie(None), authoriz
         metrics.append(user.health_mental)
     if user.health_time is not None:
         metrics.append(user.health_time)
+    if user.health_fitness is not None:
+        metrics.append(user.health_fitness)
+    if user.health_strength is not None:
+        metrics.append(user.health_strength)
     
     total_score = round(sum(metrics) / len(metrics), 1) if metrics else 0
     
@@ -458,6 +470,8 @@ async def get_health_score(session_token: Optional[str] = Cookie(None), authoriz
         "nutrition": user.health_nutrition,
         "mental_health": user.health_mental,
         "time": user.health_time,
+        "fitness": user.health_fitness,
+        "strength": user.health_strength,
         "total_score": total_score,
         "max_score": 10
     }

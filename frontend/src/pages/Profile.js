@@ -34,7 +34,9 @@ const Profile = () => {
     health_smoker: false,
     health_nutrition: 5,
     health_mental: 5,
-    health_time: 5
+    health_time: 5,
+    health_fitness: 5,
+    health_strength: 5
   });
   const [imagePreview, setImagePreview] = useState(null);
 
@@ -62,7 +64,9 @@ const Profile = () => {
         health_smoker: healthResponse.data.smoker || false,
         health_nutrition: healthResponse.data.nutrition || 5,
         health_mental: healthResponse.data.mental_health || 5,
-        health_time: healthResponse.data.time || 5
+        health_time: healthResponse.data.time || 5,
+        health_fitness: healthResponse.data.fitness || 5,
+        health_strength: healthResponse.data.strength || 5
       });
     } catch (error) {
       console.error('Failed to fetch user:', error);
@@ -449,6 +453,34 @@ const Profile = () => {
                           className="w-full"
                         />
                       </div>
+                      
+                      <div>
+                        <div className="flex justify-between mb-2">
+                          <Label>Fitness Level</Label>
+                          <span className="text-primary font-bold">{healthFormData.health_fitness}/10</span>
+                        </div>
+                        <Slider
+                          value={[healthFormData.health_fitness]}
+                          onValueChange={(value) => setHealthFormData({ ...healthFormData, health_fitness: value[0] })}
+                          max={10}
+                          step={1}
+                          className="w-full"
+                        />
+                      </div>
+                      
+                      <div>
+                        <div className="flex justify-between mb-2">
+                          <Label>Strength Level</Label>
+                          <span className="text-primary font-bold">{healthFormData.health_strength}/10</span>
+                        </div>
+                        <Slider
+                          value={[healthFormData.health_strength]}
+                          onValueChange={(value) => setHealthFormData({ ...healthFormData, health_strength: value[0] })}
+                          max={10}
+                          step={1}
+                          className="w-full"
+                        />
+                      </div>
                     </div>
                     <DialogFooter className="mt-6">
                       <Button
@@ -532,6 +564,22 @@ const Profile = () => {
                       <span className="text-primary font-bold">{healthScore.time || 0}/10</span>
                     </div>
                     <Progress value={((healthScore.time || 0) / 10) * 100} className="h-2" />
+                  </div>
+                  
+                  <div className="bg-zinc-900/50 p-4 rounded-sm">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">Fitness Level</span>
+                      <span className="text-primary font-bold">{healthScore.fitness || 0}/10</span>
+                    </div>
+                    <Progress value={((healthScore.fitness || 0) / 10) * 100} className="h-2" />
+                  </div>
+                  
+                  <div className="bg-zinc-900/50 p-4 rounded-sm">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">Strength Level</span>
+                      <span className="text-primary font-bold">{healthScore.strength || 0}/10</span>
+                    </div>
+                    <Progress value={((healthScore.strength || 0) / 10) * 100} className="h-2" />
                   </div>
                 </div>
               </div>
