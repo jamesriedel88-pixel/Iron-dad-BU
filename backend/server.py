@@ -62,6 +62,10 @@ class User(BaseModel):
     workouts_completed: int = 0
     points: int = 0
     current_badge: str = "Beginner"
+    before_photo: Optional[str] = None
+    height: Optional[str] = None
+    weight: Optional[str] = None
+    occupation: Optional[str] = None
 
 class UserSignup(BaseModel):
     email: EmailStr
@@ -126,6 +130,12 @@ class ChatMessage(BaseModel):
 
 class SendMessageRequest(BaseModel):
     message: str
+
+class UpdateProfileRequest(BaseModel):
+    before_photo: Optional[str] = None
+    height: Optional[str] = None
+    weight: Optional[str] = None
+    occupation: Optional[str] = None
 
 # Helper functions
 def get_password_hash(password: str) -> str:
