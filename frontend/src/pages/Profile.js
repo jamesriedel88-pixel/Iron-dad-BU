@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { User as UserIcon, Mail, Calendar, Trophy, Zap, Edit, Camera } from 'lucide-react';
+import { User as UserIcon, Mail, Calendar, Trophy, Zap, Edit, Camera, Heart, Activity } from 'lucide-react';
 import { toast } from 'sonner';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar';
@@ -9,6 +9,9 @@ import { Button } from '@/components/ui/button';
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
+import { Switch } from '@/components/ui/switch';
+import { Slider } from '@/components/ui/slider';
+import { Progress } from '@/components/ui/progress';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
@@ -16,11 +19,22 @@ const Profile = () => {
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
+  const [healthDialogOpen, setHealthDialogOpen] = useState(false);
+  const [healthScore, setHealthScore] = useState(null);
   const [formData, setFormData] = useState({
     before_photo: '',
     height: '',
     weight: '',
     occupation: ''
+  });
+  const [healthFormData, setHealthFormData] = useState({
+    health_sleep: 5,
+    health_physical_activity: 5,
+    health_water_intake: 5,
+    health_smoker: false,
+    health_nutrition: 5,
+    health_mental: 5,
+    health_time: 5
   });
   const [imagePreview, setImagePreview] = useState(null);
 
@@ -37,6 +51,19 @@ const Profile = () => {
       if (response.data.before_photo) {
         setImagePreview(response.data.before_photo);
       }
+      
+      // Fetch health score
+      const healthResponse = await axios.get(`${BACKEND_URL}/api/profile/health-score`, { withCredentials: true });
+      setHealthScore(healthResponse.data);
+      setHealthFormData({
+        health_sleep: healthResponse.data.sleep || 5,
+        health_physical_activity: healthResponse.data.physical_activity || 5,
+        health_water_intake: healthResponse.data.water_intake || 5,
+        health_smoker: healthResponse.data.smoker || false,
+        health_nutrition: healthResponse.data.nutrition || 5,
+        health_mental: healthResponse.data.mental_health || 5,
+        health_time: healthResponse.data.time || 5
+      });
     } catch (error) {
       console.error('Failed to fetch user:', error);
     } finally {
@@ -79,6 +106,23 @@ const Profile = () => {
       fetchUser();
     } catch (error) {
       toast.error('Failed to update profile');
+    }
+  };
+
+  const handleUpdateHealthScore = async (e) => {
+    e.preventDefault();
+    
+    try {
+      await axios.put(
+        `${BACKEND_URL}/api/profile/health-score`,
+        healthFormData,
+        { withCredentials: true }
+      );
+      toast.success('Dad Health Score updated successfully!');
+      setHealthDialogOpen(false);
+      fetchUser();
+    } catch (error) {
+      toast.error('Failed to update health score');
     }
   };
 
