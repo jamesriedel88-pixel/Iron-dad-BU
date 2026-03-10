@@ -109,7 +109,7 @@ const Workouts = () => {
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4">
           <div>
             <h1 className="text-3xl md:text-5xl font-bold tracking-tight uppercase mb-2">Workouts</h1>
-            <p className="text-base md:text-lg text-muted-foreground">Complete 30 workouts to level up</p>
+            <p className="text-base md:text-lg text-muted-foreground">Complete workouts to level up and earn badges</p>
           </div>
           <Dialog open={dialogOpen} onOpenChange={setDialogOpen}>
             <DialogTrigger asChild>
