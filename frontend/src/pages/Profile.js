@@ -331,6 +331,226 @@ const Profile = () => {
           </Card>
         </div>
 
+
+        {/* Dad Health Score Card */}
+        <Card data-testid="dad-health-score-card" className="bg-card border-border mb-6">
+          <CardHeader>
+            <div className="flex justify-between items-center">
+              <CardTitle className="flex items-center gap-2">
+                <Heart className="w-6 h-6 text-destructive" />
+                Dad Health Score
+              </CardTitle>
+              <Dialog open={healthDialogOpen} onOpenChange={setHealthDialogOpen}>
+                <DialogTrigger asChild>
+                  <Button
+                    data-testid="update-health-score-button"
+                    className="bg-primary text-white hover:bg-primary/90 rounded-sm font-bold uppercase tracking-wider"
+                  >
+                    <Activity className="w-4 h-4 mr-2" />
+                    Update Score
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="bg-card border-border max-w-2xl">
+                  <DialogHeader>
+                    <DialogTitle>Update Dad Health Score</DialogTitle>
+                    <DialogDescription>Rate each category out of 10 (higher is better)</DialogDescription>
+                  </DialogHeader>
+                  <form onSubmit={handleUpdateHealthScore}>
+                    <div className="space-y-6 max-h-[60vh] overflow-y-auto px-1">
+                      <div>
+                        <div className="flex justify-between mb-2">
+                          <Label>Sleep Quality</Label>
+                          <span className="text-primary font-bold">{healthFormData.health_sleep}/10</span>
+                        </div>
+                        <Slider
+                          value={[healthFormData.health_sleep]}
+                          onValueChange={(value) => setHealthFormData({ ...healthFormData, health_sleep: value[0] })}
+                          max={10}
+                          step={1}
+                          className="w-full"
+                        />
+                      </div>
+                      
+                      <div>
+                        <div className="flex justify-between mb-2">
+                          <Label>Physical Activity</Label>
+                          <span className="text-primary font-bold">{healthFormData.health_physical_activity}/10</span>
+                        </div>
+                        <Slider
+                          value={[healthFormData.health_physical_activity]}
+                          onValueChange={(value) => setHealthFormData({ ...healthFormData, health_physical_activity: value[0] })}
+                          max={10}
+                          step={1}
+                          className="w-full"
+                        />
+                      </div>
+                      
+                      <div>
+                        <div className="flex justify-between mb-2">
+                          <Label>Water Intake</Label>
+                          <span className="text-primary font-bold">{healthFormData.health_water_intake}/10</span>
+                        </div>
+                        <Slider
+                          value={[healthFormData.health_water_intake]}
+                          onValueChange={(value) => setHealthFormData({ ...healthFormData, health_water_intake: value[0] })}
+                          max={10}
+                          step={1}
+                          className="w-full"
+                        />
+                      </div>
+                      
+                      <div className="flex items-center justify-between">
+                        <Label htmlFor="smoker-toggle">Smoker or Vaper</Label>
+                        <Switch
+                          id="smoker-toggle"
+                          checked={healthFormData.health_smoker}
+                          onCheckedChange={(checked) => setHealthFormData({ ...healthFormData, health_smoker: checked })}
+                        />
+                      </div>
+                      
+                      <div>
+                        <div className="flex justify-between mb-2">
+                          <Label>Nutrition</Label>
+                          <span className="text-primary font-bold">{healthFormData.health_nutrition}/10</span>
+                        </div>
+                        <Slider
+                          value={[healthFormData.health_nutrition]}
+                          onValueChange={(value) => setHealthFormData({ ...healthFormData, health_nutrition: value[0] })}
+                          max={10}
+                          step={1}
+                          className="w-full"
+                        />
+                      </div>
+                      
+                      <div>
+                        <div className="flex justify-between mb-2">
+                          <Label>Mental Health</Label>
+                          <span className="text-primary font-bold">{healthFormData.health_mental}/10</span>
+                        </div>
+                        <Slider
+                          value={[healthFormData.health_mental]}
+                          onValueChange={(value) => setHealthFormData({ ...healthFormData, health_mental: value[0] })}
+                          max={10}
+                          step={1}
+                          className="w-full"
+                        />
+                      </div>
+                      
+                      <div>
+                        <div className="flex justify-between mb-2">
+                          <Label>Time Management</Label>
+                          <span className="text-primary font-bold">{healthFormData.health_time}/10</span>
+                        </div>
+                        <Slider
+                          value={[healthFormData.health_time]}
+                          onValueChange={(value) => setHealthFormData({ ...healthFormData, health_time: value[0] })}
+                          max={10}
+                          step={1}
+                          className="w-full"
+                        />
+                      </div>
+                    </div>
+                    <DialogFooter className="mt-6">
+                      <Button
+                        type="submit"
+                        data-testid="save-health-score-button"
+                        className="bg-primary text-white hover:bg-primary/90 rounded-sm font-bold uppercase tracking-wider"
+                      >
+                        Save Health Score
+                      </Button>
+                    </DialogFooter>
+                  </form>
+                </DialogContent>
+              </Dialog>
+            </div>
+          </CardHeader>
+          <CardContent>
+            {healthScore && healthScore.total_score > 0 ? (
+              <div>
+                <div className="text-center mb-6">
+                  <div className="text-6xl font-extrabold text-primary mb-2">
+                    {healthScore.total_score}/10
+                  </div>
+                  <p className="text-muted-foreground">Overall Dad Health Score</p>
+                  <Progress value={(healthScore.total_score / 10) * 100} className="h-4 mt-4" />
+                </div>
+                
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="bg-zinc-900/50 p-4 rounded-sm">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">Sleep Quality</span>
+                      <span className="text-primary font-bold">{healthScore.sleep || 0}/10</span>
+                    </div>
+                    <Progress value={((healthScore.sleep || 0) / 10) * 100} className="h-2" />
+                  </div>
+                  
+                  <div className="bg-zinc-900/50 p-4 rounded-sm">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">Physical Activity</span>
+                      <span className="text-primary font-bold">{healthScore.physical_activity || 0}/10</span>
+                    </div>
+                    <Progress value={((healthScore.physical_activity || 0) / 10) * 100} className="h-2" />
+                  </div>
+                  
+                  <div className="bg-zinc-900/50 p-4 rounded-sm">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">Water Intake</span>
+                      <span className="text-primary font-bold">{healthScore.water_intake || 0}/10</span>
+                    </div>
+                    <Progress value={((healthScore.water_intake || 0) / 10) * 100} className="h-2" />
+                  </div>
+                  
+                  <div className="bg-zinc-900/50 p-4 rounded-sm">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">Smoker/Vaper</span>
+                      <span className={`font-bold ${healthScore.smoker ? 'text-destructive' : 'text-accent'}`}>
+                        {healthScore.smoker ? 'Yes (0/10)' : 'No (10/10)'}
+                      </span>
+                    </div>
+                    <Progress value={healthScore.smoker ? 0 : 100} className="h-2" />
+                  </div>
+                  
+                  <div className="bg-zinc-900/50 p-4 rounded-sm">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">Nutrition</span>
+                      <span className="text-primary font-bold">{healthScore.nutrition || 0}/10</span>
+                    </div>
+                    <Progress value={((healthScore.nutrition || 0) / 10) * 100} className="h-2" />
+                  </div>
+                  
+                  <div className="bg-zinc-900/50 p-4 rounded-sm">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">Mental Health</span>
+                      <span className="text-primary font-bold">{healthScore.mental_health || 0}/10</span>
+                    </div>
+                    <Progress value={((healthScore.mental_health || 0) / 10) * 100} className="h-2" />
+                  </div>
+                  
+                  <div className="bg-zinc-900/50 p-4 rounded-sm md:col-span-2">
+                    <div className="flex justify-between items-center mb-2">
+                      <span className="text-sm font-medium">Time Management</span>
+                      <span className="text-primary font-bold">{healthScore.time || 0}/10</span>
+                    </div>
+                    <Progress value={((healthScore.time || 0) / 10) * 100} className="h-2" />
+                  </div>
+                </div>
+              </div>
+            ) : (
+              <div className="text-center py-8">
+                <Activity className="w-16 h-16 mx-auto text-muted-foreground mb-4" />
+                <p className="text-muted-foreground mb-4">Track your overall health and wellness</p>
+                <Button
+                  data-testid="setup-health-score-button"
+                  onClick={() => setHealthDialogOpen(true)}
+                  className="bg-primary text-white hover:bg-primary/90 rounded-sm font-bold uppercase tracking-wider"
+                >
+                  Set Up Health Score
+                </Button>
+              </div>
+            )}
+          </CardContent>
+        </Card>
+
         {/* Body Stats Card */}
         <Card data-testid="body-stats-card" className="bg-card border-border mb-6">
           <CardHeader>
