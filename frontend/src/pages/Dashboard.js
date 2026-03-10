@@ -44,7 +44,8 @@ const Dashboard = () => {
     { level: 2, name: 'Warrior', icon: '⚔️', unlocked: progress?.current_level >= 2 },
     { level: 3, name: 'Champion', icon: '🏆', unlocked: progress?.current_level >= 3 },
     { level: 4, name: 'Legend', icon: '👑', unlocked: progress?.current_level >= 4 },
-    { level: 5, name: 'Weapon Master', icon: '🔥', unlocked: progress?.current_level >= 5 }
+    { level: 5, name: 'Weapon Master', icon: '🔥', unlocked: progress?.current_level >= 5 },
+    { level: 6, name: 'Ultimate Weapon', icon: '⚡', unlocked: progress?.current_level >= 6 }
   ];
 
   return (
