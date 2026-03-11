@@ -571,13 +571,13 @@ async def complete_workout(data: CompleteWorkoutRequest, session_token: Optional
     new_level, new_badge, workouts_in_level, workouts_for_next = calculate_level_and_badge(new_workouts_completed)
     
     await db.users.update_one(
-        {{"user_id": user.user_id}},
-        {{"$set": {{
+        {"user_id": user.user_id},
+        {"$set": {
             "workouts_completed": new_workouts_completed,
             "points": new_points,
             "level": new_level,
             "current_badge": new_badge
-        }}}}
+        }}
     )
     
     leveled_up = new_level > user.level
@@ -585,11 +585,11 @@ async def complete_workout(data: CompleteWorkoutRequest, session_token: Optional
     # Count newly unlocked workouts
     newly_unlocked_count = 0
     if leveled_up:
-        newly_unlocked_count = await db.workouts.count_documents({{
+        newly_unlocked_count = await db.workouts.count_documents({
             "required_level": new_level
-        }})
+        })
     
-    return {{
+    return {
         "message": "Workout completed!",
         "workouts_completed": new_workouts_completed,
         "points": new_points,
@@ -597,7 +597,7 @@ async def complete_workout(data: CompleteWorkoutRequest, session_token: Optional
         "badge": new_badge,
         "leveled_up": leveled_up,
         "newly_unlocked_workouts": newly_unlocked_count
-    }}
+    }
 
 @api_router.get("/workouts/progress")
 async def get_workout_progress(session_token: Optional[str] = Cookie(None), authorization: Optional[str] = None):
