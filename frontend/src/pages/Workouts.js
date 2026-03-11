@@ -26,7 +26,8 @@ const Workouts = () => {
     duration_minutes: 30,
     difficulty: 'Intermediate',
     category: 'Strength',
-    required_level: 1
+    required_level: 1,
+    sequence_order: 1
   });
 
   const fetchData = async () => {
@@ -60,7 +61,8 @@ const Workouts = () => {
         duration_minutes: 30,
         difficulty: 'Intermediate',
         category: 'Strength',
-        required_level: 1
+        required_level: 1,
+        sequence_order: 1
       });
       fetchData();
     } catch (error) {
@@ -271,6 +273,19 @@ const Workouts = () => {
                         <SelectItem value="6">Level 6 - Ultimate Weapon</SelectItem>
                       </SelectContent>
                     </Select>
+                  </div>
+                  <div>
+                    <Label htmlFor="sequence_order">Workout Number in Level</Label>
+                    <Input
+                      id="sequence_order"
+                      data-testid="workout-sequence-input"
+                      type="number"
+                      min="1"
+                      value={formData.sequence_order}
+                      onChange={(e) => setFormData({ ...formData, sequence_order: parseInt(e.target.value) })}
+                      className="bg-zinc-900/50 border-zinc-800"
+                      required
+                    />
                   </div>
                 </div>
                 <DialogFooter className="mt-6">
