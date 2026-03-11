@@ -98,6 +98,7 @@ class Workout(BaseModel):
     difficulty: str
     category: str
     required_level: int = 1
+    sequence_order: int = 1
     created_at: datetime
 
 class WorkoutCreate(BaseModel):
@@ -107,6 +108,7 @@ class WorkoutCreate(BaseModel):
     difficulty: str
     category: str
     required_level: int = 1
+    sequence_order: int = 1
 
 class WorkoutCompletion(BaseModel):
     model_config = ConfigDict(extra="ignore")
@@ -509,17 +511,34 @@ async def get_health_score(session_token: Optional[str] = Cookie(None), authoriz
 async def get_workouts(session_token: Optional[str] = Cookie(None), authorization: Optional[str] = None):
     user = await get_current_user(session_token, authorization)
     
-    # Fetch all workouts that user has unlocked (required_level <= user's level)
-    workouts = await db.workouts.find(
-        {"required_level": {"$lte": user.level}},
-        {"_id": 0}
-    ).to_list(1000)
+    # Get user's completed workout IDs
+    completions = await db.workout_completions.find({"user_id": user.user_id}, {"_id": 0}).to_list(1000)
+    completed_workout_ids = [c["workout_id"] for c in completions]
     
-    for workout in workouts:
+    # Fetch all workouts for user's current level
+    all_workouts = await db.workouts.find(
+        {"required_level": user.level},
+        {"_id": 0}
+    ).sort("sequence_order", 1).to_list(1000)
+    
+    # Filter workouts to show only sequential unlocked ones
+    unlocked_workouts = []
+    for workout in all_workouts:
         if isinstance(workout['created_at'], str):
             workout['created_at'] = datetime.fromisoformat(workout['created_at'])
+        
+        # If this is the first workout or all previous workouts in sequence are completed
+        if workout['sequence_order'] == 1:
+            unlocked_workouts.append(workout)
+        else:
+            # Check if previous workout in sequence is completed
+            previous_workouts = [w for w in all_workouts if w['sequence_order'] < workout['sequence_order']]
+            all_previous_completed = all(w['workout_id'] in completed_workout_ids for w in previous_workouts)
+            
+            if all_previous_completed:
+                unlocked_workouts.append(workout)
     
-    return workouts
+    return unlocked_workouts
 
 @api_router.post("/workouts", response_model=Workout)
 async def create_workout(workout_data: WorkoutCreate, session_token: Optional[str] = Cookie(None), authorization: Optional[str] = None):
@@ -534,6 +553,7 @@ async def create_workout(workout_data: WorkoutCreate, session_token: Optional[st
         "difficulty": workout_data.difficulty,
         "category": workout_data.category,
         "required_level": workout_data.required_level,
+        "sequence_order": workout_data.sequence_order,
         "created_at": datetime.now(timezone.utc).isoformat()
     }
     
