@@ -382,7 +382,7 @@ const Workouts = () => {
                         <Check className="w-6 h-6 text-accent" data-testid="completed-check" />
                       )}
                     </div>
-                    <CardDescription>{workout.description}</CardDescription>
+                    <CardDescription className="whitespace-pre-line text-sm leading-relaxed">{workout.description}</CardDescription>
                   </CardHeader>
                   <CardContent>
                     <div className="flex items-center justify-between mb-4">
