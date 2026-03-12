@@ -515,44 +515,32 @@ async def get_workouts(session_token: Optional[str] = Cookie(None), authorizatio
     completions = await db.workout_completions.find({"user_id": user.user_id}, {"_id": 0}).to_list(1000)
     completed_workout_ids = [c["workout_id"] for c in completions]
     
-    # Fetch all workouts for user's current level and below
+    # Fetch workouts for user's current level ONLY
     all_workouts = await db.workouts.find(
-        {"required_level": {"$lte": user.level}},
+        {"required_level": user.level},
         {"_id": 0}
-    ).sort([("required_level", 1), ("sequence_order", 1)]).to_list(1000)
+    ).sort("sequence_order", 1).to_list(1000)
     
-    # Filter workouts to show only sequential unlocked ones per level
+    # Filter workouts to show only sequential unlocked ones
     unlocked_workouts = []
     
-    # Group workouts by level
-    workouts_by_level = {}
     for workout in all_workouts:
         if isinstance(workout['created_at'], str):
             workout['created_at'] = datetime.fromisoformat(workout['created_at'])
         
-        level = workout['required_level']
-        if level not in workouts_by_level:
-            workouts_by_level[level] = []
-        workouts_by_level[level].append(workout)
-    
-    # For each level, unlock workouts sequentially
-    for level in sorted(workouts_by_level.keys()):
-        level_workouts = workouts_by_level[level]
-        
-        for workout in level_workouts:
-            # If this is the first workout in the level
-            if workout['sequence_order'] == 1:
+        # Always show the first workout in sequence
+        if len(unlocked_workouts) == 0:
+            unlocked_workouts.append(workout)
+        else:
+            # Check if ALL previous workouts in this level are completed
+            previous_workouts = [w for w in all_workouts if w['sequence_order'] < workout['sequence_order']]
+            all_previous_completed = all(w['workout_id'] in completed_workout_ids for w in previous_workouts)
+            
+            if all_previous_completed:
                 unlocked_workouts.append(workout)
             else:
-                # Check if all previous workouts in this level are completed
-                previous_workouts = [w for w in level_workouts if w['sequence_order'] < workout['sequence_order']]
-                all_previous_completed = all(w['workout_id'] in completed_workout_ids for w in previous_workouts)
-                
-                if all_previous_completed:
-                    unlocked_workouts.append(workout)
-                else:
-                    # Stop unlocking workouts in this level - must complete in sequence
-                    break
+                # Stop here - must complete in order
+                break
     
     return unlocked_workouts
 
