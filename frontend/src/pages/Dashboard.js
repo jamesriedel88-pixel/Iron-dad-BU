@@ -48,7 +48,7 @@ const Dashboard = () => {
 
   const badges = [
     { level: 1, name: 'Beginner', icon: '🥉', unlocked: progress?.current_level >= 1 },
-    { level: 2, name: 'Warrior', icon: '⚔️', unlocked: progress?.current_level >= 2 },
+    { level: 2, name: 'Relentless Dad', icon: '⚔️', unlocked: progress?.current_level >= 2 },
     { level: 3, name: 'Champion', icon: '🏆', unlocked: progress?.current_level >= 3 },
     { level: 4, name: 'Legend', icon: '👑', unlocked: progress?.current_level >= 4 },
     { level: 5, name: 'Weapon Master', icon: '🔥', unlocked: progress?.current_level >= 5 },

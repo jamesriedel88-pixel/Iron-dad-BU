@@ -687,7 +687,7 @@ const Profile = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">⚔️</span>
-                  <span className="text-muted-foreground">Level 2 - Warrior</span>
+                  <span className="text-muted-foreground">Level 2 - Relentless Dad</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">🏆</span>
