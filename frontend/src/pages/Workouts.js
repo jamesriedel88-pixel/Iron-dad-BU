@@ -17,18 +17,8 @@ const Workouts = () => {
   const [workouts, setWorkouts] = useState([]);
   const [progress, setProgress] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [dialogOpen, setDialogOpen] = useState(false);
   const [shareDialogOpen, setShareDialogOpen] = useState(false);
   const [completedWorkoutData, setCompletedWorkoutData] = useState(null);
-  const [formData, setFormData] = useState({
-    title: '',
-    description: '',
-    duration_minutes: 30,
-    difficulty: 'Intermediate',
-    category: 'Strength',
-    required_level: 1,
-    sequence_order: 1
-  });
 
   const fetchData = async () => {
     try {
@@ -48,27 +38,6 @@ const Workouts = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
-  const handleCreateWorkout = async (e) => {
-    e.preventDefault();
-    try {
-      await axios.post(`${BACKEND_URL}/api/workouts`, formData, { withCredentials: true });
-      toast.success('Workout created successfully!');
-      setDialogOpen(false);
-      setFormData({
-        title: '',
-        description: '',
-        duration_minutes: 30,
-        difficulty: 'Intermediate',
-        category: 'Strength',
-        required_level: 1,
-        sequence_order: 1
-      });
-      fetchData();
-    } catch (error) {
-      toast.error('Failed to create workout');
-    }
-  };
 
   const handleCompleteWorkout = async (workoutId) => {
     try {
