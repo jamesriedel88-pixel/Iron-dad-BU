@@ -183,7 +183,8 @@ const Workouts = () => {
         {/* Workouts Grid */}
         {workouts.length === 0 ? (
           <div className="text-center py-12">
-            <p className="text-muted-foreground mb-4">No workouts yet. Create your first workout to get started!</p>
+            <p className="text-muted-foreground mb-4">Loading your first workout...</p>
+            <p className="text-sm text-muted-foreground">If workouts don't appear, please refresh the page</p>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
