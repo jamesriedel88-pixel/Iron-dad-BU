@@ -202,7 +202,7 @@ def calculate_level_and_badge(workouts_completed: int) -> tuple[int, str, int, i
     # Progressive level thresholds: [cumulative_workouts, level, badge]
     levels = [
         (0, 1, "Beginner"),          # Level 1: 0-4 workouts
-        (5, 2, "Warrior"),           # Level 2: 5-14 workouts
+        (5, 2, "Relentless Dad"),    # Level 2: 5-14 workouts
         (15, 3, "Champion"),         # Level 3: 15-34 workouts
         (35, 4, "Legend"),           # Level 4: 35-64 workouts
         (65, 5, "Weapon Master"),    # Level 5: 65-104 workouts
