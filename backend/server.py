@@ -544,6 +544,30 @@ async def get_workouts(session_token: Optional[str] = Cookie(None), authorizatio
     
     return unlocked_workouts
 
+@api_router.get("/workouts/by-level/{level}", response_model=List[Workout])
+async def get_workouts_by_level(level: int, session_token: Optional[str] = Cookie(None), authorization: Optional[str] = None):
+    user = await get_current_user(session_token, authorization)
+    
+    # Can only access levels that have been unlocked
+    if level > user.level:
+        raise HTTPException(status_code=403, detail="Level not unlocked yet")
+    
+    # Get user's completed workout IDs
+    completions = await db.workout_completions.find({"user_id": user.user_id}, {"_id": 0}).to_list(1000)
+    completed_workout_ids = [c["workout_id"] for c in completions]
+    
+    # Fetch all workouts for the specified level
+    workouts = await db.workouts.find(
+        {"required_level": level},
+        {"_id": 0}
+    ).sort("sequence_order", 1).to_list(1000)
+    
+    for workout in workouts:
+        if isinstance(workout['created_at'], str):
+            workout['created_at'] = datetime.fromisoformat(workout['created_at'])
+    
+    return workouts
+
 @api_router.post("/workouts", response_model=Workout)
 async def create_workout(workout_data: WorkoutCreate, session_token: Optional[str] = Cookie(None), authorization: Optional[str] = None):
     await get_current_user(session_token, authorization)
