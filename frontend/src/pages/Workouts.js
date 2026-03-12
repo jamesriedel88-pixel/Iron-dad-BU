@@ -15,6 +15,8 @@ const Workouts = () => {
   const [loading, setLoading] = useState(true);
   const [shareDialogOpen, setShareDialogOpen] = useState(false);
   const [completedWorkoutData, setCompletedWorkoutData] = useState(null);
+  const [selectedLevel, setSelectedLevel] = useState(null);
+  const [allWorkouts, setAllWorkouts] = useState([]);
 
   const fetchData = async () => {
     try {
@@ -23,7 +25,13 @@ const Workouts = () => {
         axios.get(`${BACKEND_URL}/api/workouts/progress`, { withCredentials: true })
       ]);
       setWorkouts(workoutsRes.data);
+      setAllWorkouts(workoutsRes.data);
       setProgress(progressRes.data);
+      
+      // Set selected level to current level by default
+      if (!selectedLevel && progressRes.data) {
+        setSelectedLevel(progressRes.data.current_level);
+      }
     } catch (error) {
       toast.error('Failed to fetch workouts');
     } finally {
@@ -111,6 +119,27 @@ const Workouts = () => {
     return progress?.completed_workout_ids?.includes(workoutId);
   };
 
+  const handleLevelSelect = async (level) => {
+    setSelectedLevel(level);
+    try {
+      const response = await axios.get(`${BACKEND_URL}/api/workouts/by-level/${level}`, { 
+        withCredentials: true 
+      });
+      setWorkouts(response.data);
+    } catch (error) {
+      toast.error('Failed to load workouts for this level');
+    }
+  };
+
+  const badges = [
+    { level: 1, name: 'Beginner', icon: '🥉', unlocked: progress?.current_level >= 1 },
+    { level: 2, name: 'Relentless Dad', icon: '⚔️', unlocked: progress?.current_level >= 2 },
+    { level: 3, name: 'Champion', icon: '🏆', unlocked: progress?.current_level >= 3 },
+    { level: 4, name: 'Legend', icon: '👑', unlocked: progress?.current_level >= 4 },
+    { level: 5, name: 'Weapon Master', icon: '🔥', unlocked: progress?.current_level >= 5 },
+    { level: 6, name: 'Ultimate Weapon', icon: '⚡', unlocked: progress?.current_level >= 6 }
+  ];
+
   const difficultyColors = {
     'Beginner': 'text-green-400',
     'Intermediate': 'text-yellow-400',
@@ -133,6 +162,36 @@ const Workouts = () => {
           <h1 className="text-3xl md:text-5xl font-bold tracking-tight uppercase mb-2">Workouts</h1>
           <p className="text-base md:text-lg text-muted-foreground">Complete workouts to level up and earn badges</p>
         </div>
+
+        {/* Level Badges Filter */}
+        {progress && (
+          <div className="mb-6">
+            <h3 className="text-sm font-bold uppercase tracking-wider text-muted-foreground mb-3">Select Level</h3>
+            <div className="flex flex-wrap gap-3">
+              {badges.map((badge) => (
+                <button
+                  key={badge.level}
+                  data-testid={`level-badge-${badge.level}`}
+                  onClick={() => badge.unlocked && handleLevelSelect(badge.level)}
+                  disabled={!badge.unlocked}
+                  className={`flex items-center gap-2 px-4 py-3 rounded-sm border transition-all duration-200 ${
+                    badge.unlocked
+                      ? selectedLevel === badge.level
+                        ? 'bg-primary border-primary text-white font-bold'
+                        : 'bg-card border-border hover:border-primary cursor-pointer'
+                      : 'bg-zinc-900/30 border-zinc-800 opacity-50 cursor-not-allowed'
+                  }`}
+                >
+                  <span className="text-2xl">{badge.icon}</span>
+                  <div className="text-left">
+                    <div className="text-xs font-bold uppercase">Level {badge.level}</div>
+                    <div className="text-sm">{badge.name}</div>
+                  </div>
+                </button>
+              ))}
+            </div>
+          </div>
+        )}
 
         {/* Share Dialog */}
         <Dialog open={shareDialogOpen} onOpenChange={setShareDialogOpen}>
