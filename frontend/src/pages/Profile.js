@@ -691,19 +691,19 @@ const Profile = () => {
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">🏆</span>
-                  <span className="text-muted-foreground">Level 3 - Champion</span>
+                  <span className="text-muted-foreground">Level 3 - Beast Mode</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">👑</span>
-                  <span className="text-muted-foreground">Level 4 - Legend</span>
+                  <span className="text-muted-foreground">Level 4 - Alpha</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">🔥</span>
-                  <span className="text-muted-foreground">Level 5 - Weapon Master</span>
+                  <span className="text-muted-foreground">Level 5 - Unbreakable</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">⚡</span>
-                  <span className="text-muted-foreground">Level 6 - Ultimate Weapon</span>
+                  <span className="text-muted-foreground">Level 6 - GOAT Dad</span>
                 </div>
               </div>
             </div>
