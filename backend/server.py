@@ -203,10 +203,10 @@ def calculate_level_and_badge(workouts_completed: int) -> tuple[int, str, int, i
     levels = [
         (0, 1, "Beginner"),          # Level 1: 0-4 workouts
         (5, 2, "Relentless Dad"),    # Level 2: 5-14 workouts
-        (15, 3, "Champion"),         # Level 3: 15-34 workouts
-        (35, 4, "Legend"),           # Level 4: 35-64 workouts
-        (65, 5, "Weapon Master"),    # Level 5: 65-104 workouts
-        (105, 6, "Ultimate Weapon")  # Level 6: 105-154 workouts
+        (15, 3, "Beast Mode"),       # Level 3: 15-34 workouts
+        (35, 4, "Alpha"),            # Level 4: 35-64 workouts
+        (65, 5, "Unbreakable"),      # Level 5: 65-104 workouts
+        (105, 6, "GOAT Dad")         # Level 6: 105-154 workouts
     ]
     
     # Workouts needed for each level
