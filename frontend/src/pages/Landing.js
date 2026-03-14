@@ -93,8 +93,8 @@ const Landing = () => {
           {/* Trainer Photo */}
           <div className="max-w-2xl mx-auto mb-12 mt-8">
             <img 
-              src="https://customer-assets.emergentagent.com/job_fit-dad-forge/artifacts/1whs245i_3478211F-BA62-47A1-967D-5C2159D401DA.JPG"
-              alt="Personal trainer instructing class in gym"
+              src="https://customer-assets.emergentagent.com/job_account-update-5/artifacts/nprg4k8t_IMG_5092.jpeg"
+              alt="Fitness trainer - determined and focused"
               className="w-full h-auto rounded-sm border border-border shadow-lg"
             />
           </div>
