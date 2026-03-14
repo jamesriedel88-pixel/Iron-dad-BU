@@ -36,7 +36,7 @@ const Landing = () => {
       <div className="relative h-screen flex items-center justify-center overflow-hidden">
         <div
           className="absolute inset-0 bg-cover bg-center opacity-20"
-          style={{ backgroundImage: `url('https://images.unsplash.com/photo-1640888652225-529c8cd4be50?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDk1Nzd8MHwxfHNlYXJjaHwxfHxmaXQlMjBtYW4lMjB3b3JraW5nJTIwb3V0JTIwaG9tZSUyMGd5bXxlbnwwfHx8fDE3NzMwMjc3ODR8MA&ixlib=rb-4.1.0&q=85')` }}
+          style={{ backgroundImage: `url('https://customer-assets.emergentagent.com/job_account-update-5/artifacts/06ytdh46_IMG_5088.jpeg')` }}
         />
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <motion.div
