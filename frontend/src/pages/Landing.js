@@ -135,11 +135,11 @@ const Landing = () => {
             </p>
             <div className="flex items-center justify-center gap-4 mb-4">
               <span className="text-3xl font-bold text-muted-foreground line-through">$59</span>
-              <span className="text-5xl md:text-6xl font-extrabold text-accent">$49</span>
+              <span className="text-5xl md:text-6xl font-extrabold text-accent">$39</span>
               <span className="text-xl text-muted-foreground">per month</span>
             </div>
             <p className="text-sm text-accent font-semibold mb-2">
-              Save $10/month - Lock in this rate forever!
+              Save $20/month - Lock in this rate forever!
             </p>
             <p className="text-xs text-muted-foreground">
               Limited to first 100 members only
