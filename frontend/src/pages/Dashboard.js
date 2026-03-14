@@ -58,13 +58,28 @@ const Dashboard = () => {
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
-        {/* Welcome Header */}
-        <div className="mb-8">
-          <h1 className="text-3xl md:text-5xl font-bold tracking-tight uppercase mb-2">
-            Welcome Back, <span className="text-primary">{user?.name}</span>
-          </h1>
-          <p className="text-base md:text-lg text-muted-foreground">Here's your transformation progress</p>
-        </div>
+        {/* Hero Image Section */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.95 }}
+          animate={{ opacity: 1, scale: 1 }}
+          transition={{ duration: 0.6 }}
+          className="mb-8 relative rounded-lg overflow-hidden"
+        >
+          <div className="relative h-64 md:h-80">
+            <img
+              src="https://customer-assets.emergentagent.com/job_account-update-5/artifacts/odto7u4z_33bac949-bcb7-4f9d-8ea0-61bd7034b59c%20%281%29.jpg"
+              alt="Fitness Motivation"
+              className="w-full h-full object-cover"
+            />
+            <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent" />
+            <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
+              <h1 className="text-3xl md:text-5xl font-bold tracking-tight uppercase mb-2 text-white">
+                Welcome Back, <span className="text-primary">{user?.name}</span>
+              </h1>
+              <p className="text-base md:text-lg text-white/90">Here's your transformation progress</p>
+            </div>
+          </div>
+        </motion.div>
 
         {/* Health Score Update Reminder */}
         {healthScore?.needs_update && (
