@@ -125,7 +125,7 @@ const Landing = () => {
             Transform Your Life
           </h2>
           <p className="text-base md:text-lg text-muted-foreground mb-8">
-            For only <span className="text-4xl font-extrabold text-primary">$79</span> per month
+            For only <span className="text-4xl font-extrabold text-primary">$59</span> per month
           </p>
           <div className="max-w-2xl mx-auto bg-card border border-border rounded-sm p-8 mb-8">
             <div className="space-y-4 text-left">
