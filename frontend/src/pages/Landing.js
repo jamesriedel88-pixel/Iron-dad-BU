@@ -124,9 +124,33 @@ const Landing = () => {
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight uppercase mb-6">
             Transform Your Life
           </h2>
-          <p className="text-base md:text-lg text-muted-foreground mb-8">
-            For only <span className="text-4xl font-extrabold text-primary">$59</span> per month
+          
+          {/* VIP Pre-Sale Pricing */}
+          <div className="bg-gradient-to-r from-accent/20 to-primary/20 border-2 border-accent rounded-sm p-6 mb-6">
+            <div className="inline-block bg-accent text-black font-bold uppercase text-sm px-4 py-2 rounded-full mb-4">
+              🔥 VIP Pre-Sale - Limited Spots
+            </div>
+            <p className="text-base md:text-lg text-muted-foreground mb-2">
+              Special Launch Price
+            </p>
+            <div className="flex items-center justify-center gap-4 mb-4">
+              <span className="text-3xl font-bold text-muted-foreground line-through">$59</span>
+              <span className="text-5xl md:text-6xl font-extrabold text-accent">$49</span>
+              <span className="text-xl text-muted-foreground">per month</span>
+            </div>
+            <p className="text-sm text-accent font-semibold mb-2">
+              Save $10/month - Lock in this rate forever!
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Limited to first 100 members only
+            </p>
+          </div>
+
+          {/* Regular Pricing */}
+          <p className="text-sm text-muted-foreground mb-8">
+            Regular price: $59/month after pre-sale ends
           </p>
+          
           <div className="max-w-2xl mx-auto bg-card border border-border rounded-sm p-8 mb-8">
             <div className="space-y-4 text-left">
               <div className="flex items-start gap-3">
