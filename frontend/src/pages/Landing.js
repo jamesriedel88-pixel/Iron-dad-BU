@@ -35,7 +35,7 @@ const Landing = () => {
       {/* Hero Section */}
       <div className="relative h-screen flex items-center justify-center overflow-hidden">
         <div
-          className="absolute inset-0 bg-cover bg-center opacity-20"
+          className="absolute inset-0 bg-cover bg-center opacity-50"
           style={{ backgroundImage: `url('https://customer-assets.emergentagent.com/job_account-update-5/artifacts/06ytdh46_IMG_5088.jpeg')` }}
         />
         <div className="relative z-10 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
