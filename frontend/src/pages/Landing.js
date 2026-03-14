@@ -81,14 +81,17 @@ const Landing = () => {
         <div className="text-center mb-16">
           <h2 className="text-3xl md:text-5xl font-bold tracking-tight uppercase mb-4">Why Iron Dad?</h2>
           <p className="text-base md:text-lg text-muted-foreground mb-4">Everything you need to transform your body and mindset</p>
-          <p className="text-sm md:text-base text-muted-foreground max-w-3xl mx-auto mb-8">
+          <p className="text-sm md:text-base text-muted-foreground max-w-3xl mx-auto mb-4">
             Designed by a <span className="text-primary font-semibold">Personal Trainer with over 15 years of experience</span>, 
             <span className="text-primary font-semibold"> Gym Owner</span>, and most importantly, a <span className="text-primary font-semibold">Dad</span> who 
             understands the challenges of balancing fitness with family life.
           </p>
+          <p className="text-base md:text-lg font-semibold text-accent">
+            Simple, Proven & Effective workouts
+          </p>
           
           {/* Trainer Photo */}
-          <div className="max-w-2xl mx-auto mb-12">
+          <div className="max-w-2xl mx-auto mb-12 mt-8">
             <img 
               src="https://customer-assets.emergentagent.com/job_fit-dad-forge/artifacts/1whs245i_3478211F-BA62-47A1-967D-5C2159D401DA.JPG"
               alt="Personal trainer instructing class in gym"
