@@ -50,7 +50,7 @@ const Signup = () => {
             <IronDadLogo size="default" />
           </div>
           <CardTitle className="text-3xl font-bold uppercase tracking-tight">Sign Up</CardTitle>
-          <CardDescription>Join the Dad Bod to Weapon Program today</CardDescription>
+          <CardDescription>Join the Dad Bod to Beast Program today</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSignup} className="space-y-4">
