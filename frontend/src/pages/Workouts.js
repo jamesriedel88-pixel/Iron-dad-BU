@@ -106,17 +106,17 @@ const Workouts = () => {
     }
   };
 
-  const copyToClipboard = (text) => {
+  const copyToClipboard = async (text) => {
     if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(() => {
-        toast.success('✅ Text copied! Open Instagram and paste it in your story or post.', {
-          duration: 5000
+      try {
+        await navigator.clipboard.writeText(text);
+        toast.success('✅ Text copied! Now you can paste it in Instagram.', {
+          duration: 4000
         });
-        setShareDialogOpen(false);
-      }).catch(() => {
+      } catch (error) {
         // Fallback for older browsers
         fallbackCopyToClipboard(text);
-      });
+      }
     } else {
       fallbackCopyToClipboard(text);
     }
