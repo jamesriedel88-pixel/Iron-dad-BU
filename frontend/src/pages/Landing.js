@@ -22,7 +22,7 @@ const Landing = () => {
     {
       icon: Shield,
       title: 'Nutrition Guidance',
-      description: 'Balanced meal tips to fuel your journey from Dad Bod to weapon'
+      description: 'Balanced meal tips to fuel your journey from Dad Bod to Beast'
     },
     {
       icon: Users,
