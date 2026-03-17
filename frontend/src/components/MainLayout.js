@@ -2,6 +2,7 @@ import { Outlet, useNavigate, useLocation } from 'react-router-dom';
 import { Home, Dumbbell, Apple, MessageCircle, User, LogOut } from 'lucide-react';
 import axios from 'axios';
 import { toast } from 'sonner';
+import IronDadLogo from './IronDadLogo';
 
 const BACKEND_URL = process.env.REACT_APP_BACKEND_URL;
 
