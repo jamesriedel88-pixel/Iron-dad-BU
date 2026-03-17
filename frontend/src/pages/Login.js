@@ -49,7 +49,7 @@ const Login = () => {
             <IronDadLogo size="default" />
           </div>
           <CardTitle className="text-3xl font-bold uppercase tracking-tight">Login</CardTitle>
-          <CardDescription>Dad Bod to Weapon Program - Continue your transformation</CardDescription>
+          <CardDescription>Dad Bod to Beast Program - Continue your transformation</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleLogin} className="space-y-4">
