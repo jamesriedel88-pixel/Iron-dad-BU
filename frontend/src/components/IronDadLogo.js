@@ -14,7 +14,7 @@ const IronDadLogo = ({ className = "", size = "default" }) => {
         <span className="text-primary ml-1">DAD</span>
       </div>
       <div className={`${currentSize.tagline} text-accent font-bold uppercase tracking-wider -mt-0.5`}>
-        Dad Bod to Weapon
+        Dad Bod to Beast
       </div>
     </div>
   );
