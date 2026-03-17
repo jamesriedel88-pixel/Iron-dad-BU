@@ -46,7 +46,10 @@ const Signup = () => {
     <div className="min-h-screen flex items-center justify-center bg-background px-4">
       <Card className="w-full max-w-md bg-card border-border">
         <CardHeader className="text-center">
-          <CardTitle className="text-3xl font-bold uppercase tracking-tight">Iron Dad</CardTitle>
+          <div className="flex justify-center mb-4">
+            <IronDadLogo size="default" />
+          </div>
+          <CardTitle className="text-3xl font-bold uppercase tracking-tight">Sign Up</CardTitle>
           <CardDescription>Join the Dad Bod to Weapon Program today</CardDescription>
         </CardHeader>
         <CardContent>
