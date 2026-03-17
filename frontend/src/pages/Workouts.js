@@ -85,8 +85,25 @@ const Workouts = () => {
 
     const shareText = `💪 Just completed "${completedWorkoutData.workoutTitle}" on Iron Dad's Dad Bod to Weapon program!\n\n🏆 Level ${completedWorkoutData.level} - ${completedWorkoutData.badge}\n⚡ ${completedWorkoutData.points} Total Points\n\n${completedWorkoutData.leveledUp ? '🎉 LEVEL UP! ' : ''}Become the father your kids look up to!\n\n#IronDad #DadBodToWeapon #FitDad #DadFitness #WorkoutComplete`;
 
-    // Copy to clipboard (Instagram doesn't support direct web sharing)
-    copyToClipboard(shareText);
+    // First copy to clipboard for reliability
+    await copyToClipboard(shareText);
+
+    // On mobile, try native share API (opens share sheet with Instagram option)
+    if (navigator.share) {
+      try {
+        await navigator.share({
+          title: 'Iron Dad Achievement',
+          text: shareText,
+        });
+        // If user successfully shares, close dialog
+        setShareDialogOpen(false);
+      } catch (error) {
+        // User cancelled or share failed - that's okay, text is already copied
+        if (error.name !== 'AbortError') {
+          console.log('Share failed, but text already copied to clipboard');
+        }
+      }
+    }
   };
 
   const copyToClipboard = (text) => {
