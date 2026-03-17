@@ -83,7 +83,7 @@ const Workouts = () => {
   const handleShareToInstagram = async () => {
     if (!completedWorkoutData) return;
 
-    const shareText = `💪 Just completed "${completedWorkoutData.workoutTitle}" on Iron Dad's Dad Bod to Weapon program!\n\n🏆 Level ${completedWorkoutData.level} - ${completedWorkoutData.badge}\n⚡ ${completedWorkoutData.points} Total Points\n\n${completedWorkoutData.leveledUp ? '🎉 LEVEL UP! ' : ''}Become the father your kids look up to!\n\n#IronDad #DadBodToWeapon #FitDad #DadFitness #WorkoutComplete`;
+    const shareText = `💪 Just completed "${completedWorkoutData.workoutTitle}" on Iron Dad's Dad Bod to Beast program!\n\n🏆 Level ${completedWorkoutData.level} - ${completedWorkoutData.badge}\n⚡ ${completedWorkoutData.points} Total Points\n\n${completedWorkoutData.leveledUp ? '🎉 LEVEL UP! ' : ''}Become the father your kids look up to!\n\n#IronDad #DadBodToBeast #FitDad #DadFitness #WorkoutComplete`;
 
     // First copy to clipboard for reliability
     await copyToClipboard(shareText);
