@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { Shield, Zap, Target, Users } from 'lucide-react';
 import { Button } from '@/components/ui/button';
+import IronDadLogo from '@/components/IronDadLogo';
 
 const Landing = () => {
   const navigate = useNavigate();
