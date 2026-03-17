@@ -253,7 +253,7 @@ const Workouts = () => {
                   className="w-full bg-gradient-to-r from-purple-500 via-pink-500 to-orange-500 text-white hover:opacity-90 rounded-sm font-bold uppercase tracking-wider h-12"
                 >
                   <Share2 className="w-5 h-5 mr-2" />
-                  Copy Text for Instagram
+                  Share Achievement
                 </Button>
                 <Button
                   data-testid="skip-share-button"
