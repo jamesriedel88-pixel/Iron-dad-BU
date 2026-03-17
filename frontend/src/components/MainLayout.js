@@ -33,7 +33,7 @@ const MainLayout = () => {
       {/* Desktop Sidebar */}
       <aside className="hidden md:flex md:flex-col w-64 bg-card border-r border-border">
         <div className="p-6">
-          <h1 className="text-2xl font-extrabold uppercase tracking-tighter text-primary">Iron Dad</h1>
+          <IronDadLogo size="default" />
         </div>
         <nav className="flex-1 px-4 space-y-1">
           {navItems.map((item) => {
