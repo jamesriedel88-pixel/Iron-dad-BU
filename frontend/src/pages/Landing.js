@@ -51,7 +51,7 @@ const Landing = () => {
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter uppercase text-foreground mb-6">
               Turn Your Dad Bod
               <br />
-              <span className="text-primary">Into A Weapon</span>
+              <span className="text-primary">Into A Beast</span>
             </h1>
             <p className="text-xl md:text-2xl font-semibold text-accent mb-4">
               Become the father your kids look up to
