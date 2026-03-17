@@ -45,7 +45,9 @@ const Landing = () => {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
           >
-            <div className="text-lg md:text-xl font-bold text-primary mb-3 uppercase tracking-wider">Iron Dad Presents</div>
+            <div className="mb-6 flex justify-center">
+              <IronDadLogo size="large" />
+            </div>
             <h1 className="text-5xl md:text-7xl font-extrabold tracking-tighter uppercase text-foreground mb-6">
               Turn Your Dad Bod
               <br />
