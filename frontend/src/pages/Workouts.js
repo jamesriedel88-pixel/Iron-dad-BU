@@ -85,34 +85,46 @@ const Workouts = () => {
 
     const shareText = `💪 Just completed "${completedWorkoutData.workoutTitle}" on Iron Dad's Dad Bod to Weapon program!\n\n🏆 Level ${completedWorkoutData.level} - ${completedWorkoutData.badge}\n⚡ ${completedWorkoutData.points} Total Points\n\n${completedWorkoutData.leveledUp ? '🎉 LEVEL UP! ' : ''}Become the father your kids look up to!\n\n#IronDad #DadBodToWeapon #FitDad #DadFitness #WorkoutComplete`;
 
-    // Try native share API (works on mobile)
-    if (navigator.share) {
-      try {
-        await navigator.share({
-          title: 'Iron Dad',
-          text: shareText,
-        });
-        toast.success('Shared successfully!');
-        setShareDialogOpen(false);
-      } catch (error) {
-        if (error.name !== 'AbortError') {
-          // Fallback to clipboard
-          copyToClipboard(shareText);
-        }
-      }
-    } else {
-      // Fallback to clipboard for desktop
-      copyToClipboard(shareText);
-    }
+    // Copy to clipboard (Instagram doesn't support direct web sharing)
+    copyToClipboard(shareText);
   };
 
   const copyToClipboard = (text) => {
-    navigator.clipboard.writeText(text).then(() => {
-      toast.success('Copied to clipboard! Paste it on Instagram.');
+    if (navigator.clipboard && navigator.clipboard.writeText) {
+      navigator.clipboard.writeText(text).then(() => {
+        toast.success('✅ Text copied! Open Instagram and paste it in your story or post.', {
+          duration: 5000
+        });
+        setShareDialogOpen(false);
+      }).catch(() => {
+        // Fallback for older browsers
+        fallbackCopyToClipboard(text);
+      });
+    } else {
+      fallbackCopyToClipboard(text);
+    }
+  };
+
+  const fallbackCopyToClipboard = (text) => {
+    const textArea = document.createElement('textarea');
+    textArea.value = text;
+    textArea.style.position = 'fixed';
+    textArea.style.left = '-999999px';
+    document.body.appendChild(textArea);
+    textArea.focus();
+    textArea.select();
+    
+    try {
+      document.execCommand('copy');
+      toast.success('✅ Text copied! Open Instagram and paste it in your story or post.', {
+        duration: 5000
+      });
       setShareDialogOpen(false);
-    }).catch(() => {
-      toast.error('Failed to copy');
-    });
+    } catch (err) {
+      toast.error('Please manually copy the text from the dialog');
+    }
+    
+    document.body.removeChild(textArea);
   };
 
   const isWorkoutCompleted = (workoutId) => {
