@@ -683,7 +683,7 @@ const Profile = () => {
               <div className="space-y-2 text-sm">
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">🥉</span>
-                  <span className="text-muted-foreground">Level 1 - Beginner</span>
+                  <span className="text-muted-foreground">Level 1 - Alpha Dad</span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-2xl">⚔️</span>
