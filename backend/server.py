@@ -201,10 +201,10 @@ async def get_current_user(session_token: Optional[str] = Cookie(None), authoriz
 def calculate_level_and_badge(workouts_completed: int) -> tuple[int, str, int, int]:
     # Progressive level thresholds: [cumulative_workouts, level, badge]
     levels = [
-        (0, 1, "Beginner"),          # Level 1: 0-4 workouts
+        (0, 1, "Alpha Dad"),          # Level 1: 0-4 workouts
         (5, 2, "Relentless Dad"),    # Level 2: 5-14 workouts
         (15, 3, "Beast Mode"),       # Level 3: 15-34 workouts
-        (35, 4, "Alpha"),            # Level 4: 35-64 workouts
+        (35, 4, "Savage"),            # Level 4: 35-64 workouts
         (65, 5, "Unbreakable"),      # Level 5: 65-104 workouts
         (105, 6, "GOAT Dad")         # Level 6: 105-154 workouts
     ]
@@ -220,7 +220,7 @@ def calculate_level_and_badge(workouts_completed: int) -> tuple[int, str, int, i
     }
     
     current_level = 1
-    current_badge = "Beginner"
+    current_badge = "Alpha Dad"
     workouts_in_current_level = workouts_completed
     
     # Find current level based on total workouts
