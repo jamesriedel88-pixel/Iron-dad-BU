@@ -145,7 +145,7 @@ const Landing = () => {
               Save $20/month - Lock in this rate forever!
             </p>
             <p className="text-xs text-muted-foreground">
-              Limited to first 100 members only
+              Limited spots available
             </p>
           </div>
 
