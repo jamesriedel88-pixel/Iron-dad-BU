@@ -169,7 +169,7 @@ const Workouts = () => {
   ];
 
   const difficultyColors = {
-    'Beginner': 'text-green-400',
+    'Alpha Dad': 'text-green-400',
     'Intermediate': 'text-yellow-400',
     'Advanced': 'text-red-400'
   };
