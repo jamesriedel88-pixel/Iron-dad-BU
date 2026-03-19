@@ -61,7 +61,7 @@ class User(BaseModel):
     level: int = 1
     workouts_completed: int = 0
     points: int = 0
-    current_badge: str = "Beginner"
+    current_badge: str = "Alpha Dad"
     before_photo: Optional[str] = None
     height: Optional[str] = None
     weight: Optional[str] = None
