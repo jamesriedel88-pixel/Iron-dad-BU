@@ -255,7 +255,7 @@ async def signup(user_data: UserSignup):
         "level": 1,
         "workouts_completed": 0,
         "points": 0,
-        "current_badge": "Beginner"
+        "current_badge": "Alpha Dad"
     }
     
     await db.users.insert_one(user_doc)
@@ -346,7 +346,7 @@ async def exchange_session(data: SessionExchange):
             "level": 1,
             "workouts_completed": 0,
             "points": 0,
-            "current_badge": "Beginner"
+            "current_badge": "Alpha Dad"
         }
         await db.users.insert_one(user_doc)
     
