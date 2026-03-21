@@ -121,6 +121,71 @@ const Landing = () => {
         </div>
       </div>
 
+      {/* Equipment Section */}
+      <div className="py-24 px-4 sm:px-6 lg:px-8 bg-card/50">
+        <div className="max-w-4xl mx-auto">
+          <div className="text-center mb-12">
+            <h2 className="text-3xl md:text-5xl font-bold tracking-tight uppercase mb-4">
+              Minimal Equipment, Maximum Results
+            </h2>
+            <p className="text-base md:text-lg text-muted-foreground">
+              Low cost, minimal, effective equipment for home workouts
+            </p>
+          </div>
+          
+          <div className="bg-card border-2 border-primary/30 rounded-sm p-8">
+            <h3 className="text-2xl font-bold text-primary mb-6 text-center uppercase">Equipment You'll Need:</h3>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div className="flex items-start gap-3 bg-background/50 p-4 rounded-sm">
+                <div className="text-2xl">🪢</div>
+                <div>
+                  <h4 className="font-semibold text-lg">Skipping Rope</h4>
+                  <p className="text-sm text-muted-foreground">1 x Skipping rope</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3 bg-background/50 p-4 rounded-sm">
+                <div className="text-2xl">💪</div>
+                <div>
+                  <h4 className="font-semibold text-lg">Moderate Dumbbells</h4>
+                  <p className="text-sm text-muted-foreground">1 x set (5-8kg)</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3 bg-background/50 p-4 rounded-sm">
+                <div className="text-2xl">🏋️</div>
+                <div>
+                  <h4 className="font-semibold text-lg">Heavy Dumbbells</h4>
+                  <p className="text-sm text-muted-foreground">1 x set (10-25kg)</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3 bg-background/50 p-4 rounded-sm">
+                <div className="text-2xl">⚫</div>
+                <div>
+                  <h4 className="font-semibold text-lg">Kettlebells</h4>
+                  <p className="text-sm text-muted-foreground">1 x set (10-24kg)</p>
+                </div>
+              </div>
+              
+              <div className="flex items-start gap-3 bg-background/50 p-4 rounded-sm md:col-span-2">
+                <div className="text-2xl">⚽</div>
+                <div>
+                  <h4 className="font-semibold text-lg">Medicine Ball</h4>
+                  <p className="text-sm text-muted-foreground">1 x Medicine Ball (8-12kg)</p>
+                </div>
+              </div>
+            </div>
+            
+            <div className="mt-6 text-center">
+              <p className="text-sm text-accent font-semibold">
+                ✓ Everything you need to complete all 155 workouts from home
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+
       {/* Pricing Section */}
       <div className="py-24 px-4 sm:px-6 lg:px-8 bg-zinc-900/50">
         <div className="max-w-4xl mx-auto text-center">
