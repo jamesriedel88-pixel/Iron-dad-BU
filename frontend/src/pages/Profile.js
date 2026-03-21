@@ -303,12 +303,21 @@ const Profile = () => {
         <Card data-testid="profile-card" className="bg-card border-border mb-6">
           <CardHeader>
             <div className="flex flex-col md:flex-row items-center md:items-start gap-6">
-              <Avatar className="w-24 h-24">
-                <AvatarImage src={user?.picture} />
-                <AvatarFallback className="bg-primary text-white text-3xl">
-                  {user?.name?.charAt(0).toUpperCase()}
-                </AvatarFallback>
-              </Avatar>
+              <div className="relative">
+                <Avatar className="w-24 h-24">
+                  <AvatarImage src={user?.picture} />
+                  <AvatarFallback className="bg-primary text-white text-3xl">
+                    {user?.name?.charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                <button
+                  onClick={() => setProfilePictureDialogOpen(true)}
+                  className="absolute bottom-0 right-0 bg-primary text-white rounded-full p-2 hover:bg-primary/90 transition-colors shadow-lg"
+                  title="Change profile picture"
+                >
+                  <Camera className="w-4 h-4" />
+                </button>
+              </div>
               <div className="flex-1 text-center md:text-left">
                 <h2 className="text-3xl font-bold mb-2">{user?.name}</h2>
                 <div className="flex flex-col md:flex-row gap-4 text-muted-foreground">
@@ -325,6 +334,55 @@ const Profile = () => {
             </div>
           </CardHeader>
         </Card>
+
+        {/* Profile Picture Dialog */}
+        <Dialog open={profilePictureDialogOpen} onOpenChange={setProfilePictureDialogOpen}>
+          <DialogContent className="bg-card border-border">
+            <DialogHeader>
+              <DialogTitle className="text-2xl font-bold uppercase">Change Profile Picture</DialogTitle>
+              <DialogDescription>Upload a new profile picture</DialogDescription>
+            </DialogHeader>
+            <div className="space-y-4">
+              <div className="flex flex-col items-center gap-4">
+                <Avatar className="w-32 h-32">
+                  <AvatarImage src={profilePicturePreview || user?.picture} />
+                  <AvatarFallback className="bg-primary text-white text-4xl">
+                    {user?.name?.charAt(0).toUpperCase()}
+                  </AvatarFallback>
+                </Avatar>
+                <label className="cursor-pointer">
+                  <div className="bg-primary text-white px-4 py-2 rounded-sm font-bold uppercase text-sm hover:bg-primary/90 transition-colors">
+                    Choose Image
+                  </div>
+                  <input
+                    type="file"
+                    accept="image/*"
+                    onChange={handleProfilePictureChange}
+                    className="hidden"
+                  />
+                </label>
+              </div>
+            </div>
+            <DialogFooter>
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setProfilePictureDialogOpen(false);
+                  setProfilePicturePreview(null);
+                }}
+                className="rounded-sm"
+              >
+                Cancel
+              </Button>
+              <Button
+                onClick={handleUpdateProfilePicture}
+                className="bg-primary text-white hover:bg-primary/90 rounded-sm font-bold uppercase"
+              >
+                Save Picture
+              </Button>
+            </DialogFooter>
+          </DialogContent>
+        </Dialog>
 
         {/* Stats Grid */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-6">
