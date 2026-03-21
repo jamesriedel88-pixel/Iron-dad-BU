@@ -20,7 +20,9 @@ const Profile = () => {
   const [loading, setLoading] = useState(true);
   const [dialogOpen, setDialogOpen] = useState(false);
   const [healthDialogOpen, setHealthDialogOpen] = useState(false);
+  const [profilePictureDialogOpen, setProfilePictureDialogOpen] = useState(false);
   const [healthScore, setHealthScore] = useState(null);
+  const [profilePicturePreview, setProfilePicturePreview] = useState(null);
   const [formData, setFormData] = useState({
     before_photo: '',
     height: '',
