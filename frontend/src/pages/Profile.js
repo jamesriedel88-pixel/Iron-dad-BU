@@ -93,6 +93,37 @@ const Profile = () => {
     }
   };
 
+  const handleProfilePictureChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onloadend = () => {
+        setProfilePicturePreview(reader.result);
+      };
+      reader.readAsDataURL(file);
+    }
+  };
+
+  const handleUpdateProfilePicture = async () => {
+    if (!profilePicturePreview) {
+      toast.error('Please select an image');
+      return;
+    }
+
+    try {
+      await axios.put(
+        `${BACKEND_URL}/api/profile/picture`,
+        { picture: profilePicturePreview },
+        { withCredentials: true }
+      );
+      toast.success('Profile picture updated successfully!');
+      setProfilePictureDialogOpen(false);
+      fetchUser();
+    } catch (error) {
+      toast.error('Failed to update profile picture');
+    }
+  };
+
   const handleUpdateProfile = async (e) => {
     e.preventDefault();
     
