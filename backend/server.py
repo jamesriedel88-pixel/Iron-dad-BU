@@ -455,7 +455,7 @@ async def get_health_score(session_token: Optional[str] = Cookie(None), authoriz
     if user.health_water_intake is not None:
         metrics.append(user.health_water_intake)
     if user.health_smoker is not None:
-        # If smoker/vaper, score is 0, if not, score is 10
+        # Inverse for smoker (True = 0, False = 10)
         metrics.append(0 if user.health_smoker else 10)
     if user.health_nutrition is not None:
         metrics.append(user.health_nutrition)
@@ -468,43 +468,67 @@ async def get_health_score(session_token: Optional[str] = Cookie(None), authoriz
     if user.health_strength is not None:
         metrics.append(user.health_strength)
     
-    total_score = round(sum(metrics) / len(metrics), 1) if metrics else 0
-    
-    # Check if update is needed (monthly)
-    needs_update = False
-    last_updated = user.health_score_last_updated
-    
-    if last_updated:
-        if isinstance(last_updated, str):
-            last_updated = datetime.fromisoformat(last_updated)
-        if last_updated.tzinfo is None:
-            last_updated = last_updated.replace(tzinfo=timezone.utc)
+    # If no metrics, return default
+    if not metrics:
+        response = {
+            "sleep": None,
+            "physical_activity": None,
+            "water_intake": None,
+            "smoker": None,
+            "nutrition": None,
+            "mental_health": None,
+            "time": None,
+            "fitness": None,
+            "strength": None,
+            "total_score": 0,
+            "max_score": 10,
+            "needs_update": True,
+            "last_updated": None
+        }
+    else:
+        total_score = round(sum(metrics) / len(metrics), 1)
         
-        # Check if it's been more than 30 days
-        days_since_update = (datetime.now(timezone.utc) - last_updated).days
-        needs_update = days_since_update >= 30
-    elif total_score > 0:
-        # If they have a score but no last_updated date, they need to update
+        # Check if needs update (older than 30 days or never updated)
         needs_update = True
-    
-    return {
-        "sleep": user.health_sleep,
-        "physical_activity": user.health_physical_activity,
-        "water_intake": user.health_water_intake,
-        "smoker": user.health_smoker,
-        "nutrition": user.health_nutrition,
-        "mental_health": user.health_mental,
-        "time": user.health_time,
-        "fitness": user.health_fitness,
-        "strength": user.health_strength,
-        "total_score": total_score,
-        "max_score": 10,
-        "needs_update": needs_update,
-        "last_updated": last_updated.isoformat() if last_updated else None
-    }
+        last_updated = user.health_score_last_updated
+        
+        if last_updated:
+            days_since_update = (datetime.now(timezone.utc) - last_updated).days
+            needs_update = days_since_update > 30
+        
+        response = {
+            "sleep": user.health_sleep,
+            "physical_activity": user.health_physical_activity,
+            "water_intake": user.health_water_intake,
+            "smoker": user.health_smoker,
+            "nutrition": user.health_nutrition,
+            "mental_health": user.health_mental,
+            "time": user.health_time,
+            "fitness": user.health_fitness,
+            "strength": user.health_strength,
+            "total_score": total_score,
+            "max_score": 10,
+            "needs_update": needs_update,
+            "last_updated": last_updated.isoformat() if last_updated else None
+        }
 
 
     return response
+
+@api_router.put("/profile/picture")
+async def update_profile_picture(data: dict, session_token: Optional[str] = Cookie(None), authorization: Optional[str] = None):
+    user = await get_current_user(session_token, authorization)
+    
+    picture = data.get("picture")
+    if not picture:
+        raise HTTPException(status_code=400, detail="Picture data required")
+    
+    await db.users.update_one(
+        {"user_id": user.user_id},
+        {"$set": {"picture": picture}}
+    )
+    
+    return {"message": "Profile picture updated successfully"}
 
 # Workout endpoints
 @api_router.get("/workouts", response_model=List[Workout])
