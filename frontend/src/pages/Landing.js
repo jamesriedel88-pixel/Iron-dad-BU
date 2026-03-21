@@ -12,7 +12,7 @@ const Landing = () => {
     {
       icon: Zap,
       title: 'Gamified Progress',
-      description: 'Level up through 30 workouts, earn badges, and track your transformation'
+      description: 'Level up through 155 workouts, earn badges, share your progress and track your transformation'
     },
     {
       icon: Target,
