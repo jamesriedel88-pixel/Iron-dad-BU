@@ -191,6 +191,40 @@ const Workouts = () => {
           <p className="text-base md:text-lg text-muted-foreground">Complete workouts to level up and earn badges</p>
         </div>
 
+        {/* Equipment Info Card */}
+        <Card className="mb-6 bg-card/50 border-primary/30">
+          <CardHeader>
+            <CardTitle className="text-xl font-bold text-primary uppercase flex items-center gap-2">
+              <span>💪</span> Equipment Needed
+            </CardTitle>
+            <CardDescription>Low cost, minimal, effective equipment for all workouts</CardDescription>
+          </CardHeader>
+          <CardContent>
+            <div className="grid grid-cols-2 md:grid-cols-5 gap-3 text-sm">
+              <div className="flex items-center gap-2">
+                <span>🪢</span>
+                <span>1x Skipping rope</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span>💪</span>
+                <span>Dumbbells (5-8kg)</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span>🏋️</span>
+                <span>Dumbbells (10-25kg)</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span>⚫</span>
+                <span>Kettlebells (10-24kg)</span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span>⚽</span>
+                <span>Medicine Ball (8-12kg)</span>
+              </div>
+            </div>
+          </CardContent>
+        </Card>
+
         {/* Level Badges Filter */}
         {progress && (
           <div className="mb-6">
