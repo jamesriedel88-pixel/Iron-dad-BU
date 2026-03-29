@@ -337,6 +337,27 @@ const Workouts = () => {
                       )}
                     </div>
                     <CardDescription className="whitespace-pre-line text-sm leading-relaxed">{workout.description}</CardDescription>
+                    
+                    {/* Exercise Photos */}
+                    {workout.exercise_photos && Object.keys(workout.exercise_photos).length > 0 && (
+                      <div className="mt-4">
+                        {Object.entries(workout.exercise_photos).map(([exerciseName, photos]) => (
+                          <div key={exerciseName} className="mb-3">
+                            <p className="text-xs font-semibold text-primary mb-2">{exerciseName} Demo:</p>
+                            <div className="grid grid-cols-2 gap-2">
+                              {photos.map((photoUrl, idx) => (
+                                <img
+                                  key={idx}
+                                  src={photoUrl}
+                                  alt={`${exerciseName} step ${idx + 1}`}
+                                  className="w-full h-32 object-cover rounded-sm border border-border"
+                                />
+                              ))}
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    )}
                   </CardHeader>
                   <CardContent>
                     <div className="flex items-center justify-between mb-4">
